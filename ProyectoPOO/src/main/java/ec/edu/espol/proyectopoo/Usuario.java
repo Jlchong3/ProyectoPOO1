@@ -28,48 +28,24 @@ public class Usuario {
 
     public void registrarUsuario(int u) {
         Scanner input = new Scanner(System.in);
+        String nombres,apellidos,organizacion,email,clave ;
+        
         input.useDelimiter("\n");
         System.out.println("Ingrese sus nombres: ");
-        String nombres = input.next();
+        nombres = input.next();
         System.out.println("Ingrese sus apellidos: ");
-        String apellidos = input.next();
+        apellidos = input.next();
         System.out.println("Ingrese la Organización: ");
-        String organizacion = input.next();
+        organizacion = input.next();
         System.out.println("Ingrese su correo electrónico: ");
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> afd3903 (Revert "some changes")
->>>>>>> de18ac1 (Revert "some changes")
-        String email = input.nextLine();
+        email = input.nextLine();
         System.out.println("Ingrese su clave: ");
-        String clave = input.nextLine();
+        clave = input.nextLine();
         try{
             clave = Utilitaria.codificarHash(clave);
         }
         catch(NoSuchAlgorithmException e){}; 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> de18ac1 (Revert "some changes")
-=======
-        email = input.next();
-=======
-        String email = input.next();
->>>>>>> 3be36bd (Revert "some changes")
-        System.out.println("Ingrese su clave: ");
-        String clave = input.next();
         // clave = hash(clave);
->>>>>>> a3374c7 (some changes)
-<<<<<<< HEAD
-=======
->>>>>>> afd3903 (Revert "some changes")
->>>>>>> de18ac1 (Revert "some changes")
         if(u==1){
             Vendedor vendedor = new Vendedor(nombres, apellidos, organizacion, email, clave);
             if (vendedor.validar_correo("Vendedores.txt"))

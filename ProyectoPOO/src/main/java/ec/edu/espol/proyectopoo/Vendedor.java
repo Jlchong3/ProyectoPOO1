@@ -25,26 +25,30 @@ public class Vendedor extends Usuario {
                     Scanner input = new Scanner(System.in);
                     input.useDelimiter("\n");
                     input.useLocale(Locale.US);
+                    String placa,marca,modelo,motor,color,combustible;
+                    int año;
+                    double recorrido,precio;
+
                     System.out.println("Ingrese el Tipo de Vehiculo: ");
                     TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
                     System.out.println("Ingrese la placa del vehiculo: ");
-                    String placa = input.next();
+                    placa = input.next();
                     System.out.println("Ingrese la marca del vehiculo: ");
-                    String marca = input.next();
+                    marca = input.next();
                     System.out.println("Ingrese el modelo del vehiculo: ");
-                    String modelo = input.next();
+                    modelo = input.next();
                     System.out.println("Ingrese el tipo de motor del vehiculo: ");
-                    String motor = input.next();
+                    motor = input.next();
                     System.out.println("Ingrese el ano del vehiculo: ");
-                    int año = input.nextInt();
+                    año = input.nextInt();
                     System.out.println("Ingese el recorrido del vehiculo:");
-                    double recorrido = input.nextDouble();
+                    recorrido = input.nextDouble();
                     System.out.println("Ingrese el color del vehiculo: ");
-                    String color = input.next();
+                    color = input.next();
                     System.out.println("Ingrese tipo Combustible del vehiculo: ");
-                    String combustible = input.next();
+                    combustible = input.next();
                     System.out.println("Ingrese el precio del vehiculo:");
-                    double precio = input.nextDouble();
+                    precio = input.nextDouble();
 
                     for (Vehiculo v : this.vehiculos) {
                         if (v.getPlaca() == placa) {
@@ -123,6 +127,7 @@ public class Vendedor extends Usuario {
         }while(accion != 3);
         Oferta ofAceptada = ofertas.get(i);
         Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
+        sc.close();
     }
 
     public Vehiculo filtrarPlaca(String placa) {
