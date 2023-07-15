@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.security.NoSuchAlgorithmException;
+
 
 public class Usuario {
     protected String nombres;
@@ -23,7 +25,8 @@ public class Usuario {
     public String getCorreo(){
         return this.email;
     }
-    public void nextUsuario(int u) {
+
+    public void registrarUsuario(int u) {
         Scanner input = new Scanner(System.in);
         input.useDelimiter("\n");
         System.out.println("Ingrese sus nombres: ");
@@ -33,10 +36,13 @@ public class Usuario {
         System.out.println("Ingrese la Organización: ");
         String organizacion = input.next();
         System.out.println("Ingrese su correo electrónico: ");
-        String email = input.next();
+        String email = input.nextLine();
         System.out.println("Ingrese su clave: ");
-        String clave = input.next();
-        // clave = hash(clave);
+        String clave = input.nextLine();
+        try{
+            clave = Utilitaria.codificarHash(clave);
+        }
+        catch(NoSuchAlgorithmException e){}; 
         if(u==1){
             Vendedor vendedor = new Vendedor(nombres, apellidos, organizacion, email, clave);
             if (vendedor.validar_correo("Vendedores.txt"))

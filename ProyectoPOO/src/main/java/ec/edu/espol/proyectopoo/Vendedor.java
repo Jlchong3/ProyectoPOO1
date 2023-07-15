@@ -90,6 +90,7 @@ public class Vendedor extends Usuario {
         return nombres + "," + apellidos + "," + organizacion + "," + email + "," + clave;
     }
 
+
     public void aceptarOferta(){
         String[] opciones = {"1. Siguiente Oferta", "2. Anterior Oferta","3. Aceptar Oferta"};
         Scanner sc = new Scanner(System.in);
@@ -97,7 +98,8 @@ public class Vendedor extends Usuario {
         System.out.println("Ingrese placa: ");
         String placa = sc.next();
         Vehiculo v = filtrarPlaca(placa);
-        System.out.println(v.getMarca() + " " + v.getModelo() + "Precio: " + v.getPrecio());
+        String infoVe = v.getMarca() + " " + v.getModelo();
+        System.out.println(infoVe + "Precio: " + v.getPrecio());
         ArrayList<Oferta> ofertas = v.getOfertas();
         System.out.println("Se han realizado " + ofertas.size() + " ofertas");
         int i = 0;
@@ -119,8 +121,8 @@ public class Vendedor extends Usuario {
             else if (accion == 2)
                 i--;
         }while(accion != 3);
-        Oferta Ofaceptada = ofertas.get(i);
-        //correos 
+        Oferta ofAceptada = ofertas.get(i);
+        Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
     }
 
     public Vehiculo filtrarPlaca(String placa) {

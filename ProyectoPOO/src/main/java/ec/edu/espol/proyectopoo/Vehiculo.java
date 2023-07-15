@@ -30,6 +30,7 @@ public class Vehiculo {
         this.precio = precio;
         this.ofertas = new ArrayList<>();
     }
+    
 
     public String getPlaca() {
         return this.placa;
