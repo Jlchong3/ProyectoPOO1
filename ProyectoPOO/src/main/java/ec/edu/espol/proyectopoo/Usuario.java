@@ -25,16 +25,17 @@ public class Usuario {
     }
     public void nextUsuario(int u) {
         Scanner input = new Scanner(System.in);
+        input.useDelimiter("\n");
         System.out.println("Ingrese sus nombres: ");
-        String nombres = input.nextLine();
+        String nombres = input.next();
         System.out.println("Ingrese sus apellidos: ");
-        String apellidos = input.nextLine();
+        String apellidos = input.next();
         System.out.println("Ingrese la Organización: ");
-        String organizacion = input.nextLine();
+        String organizacion = input.next();
         System.out.println("Ingrese su correo electrónico: ");
-        String email = input.nextLine();
+        String email = input.next();
         System.out.println("Ingrese su clave: ");
-        String clave = input.nextLine();
+        String clave = input.next();
         // clave = hash(clave);
         if(u==1){
             Vendedor vendedor = new Vendedor(nombres, apellidos, organizacion, email, clave);

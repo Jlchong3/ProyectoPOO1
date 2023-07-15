@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Vendedor extends Usuario {
@@ -23,24 +24,25 @@ public class Vendedor extends Usuario {
                 if (tokens[3].equals(clave)) {
                     Scanner input = new Scanner(System.in);
                     input.useDelimiter("\n");
+                    input.useLocale(Locale.US);
                     System.out.println("Ingrese el Tipo de Vehiculo: ");
                     TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
                     System.out.println("Ingrese la placa del vehiculo: ");
-                    String placa = input.nextLine();
+                    String placa = input.next();
                     System.out.println("Ingrese la marca del vehiculo: ");
-                    String marca = input.nextLine();
+                    String marca = input.next();
                     System.out.println("Ingrese el modelo del vehiculo: ");
-                    String modelo = input.nextLine();
+                    String modelo = input.next();
                     System.out.println("Ingrese el tipo de motor del vehiculo: ");
-                    String motor = input.nextLine();
+                    String motor = input.next();
                     System.out.println("Ingrese el ano del vehiculo: ");
                     int año = input.nextInt();
                     System.out.println("Ingese el recorrido del vehiculo:");
                     double recorrido = input.nextDouble();
                     System.out.println("Ingrese el color del vehiculo: ");
-                    String color = input.nextLine();
+                    String color = input.next();
                     System.out.println("Ingrese tipo Combustible del vehiculo: ");
-                    String combustible = input.nextLine();
+                    String combustible = input.next();
                     System.out.println("Ingrese el precio del vehiculo:");
                     double precio = input.nextDouble();
 
@@ -56,9 +58,9 @@ public class Vendedor extends Usuario {
                                 this.vehiculos.add(ve);
                             } else {
                                 System.out.println("Ingrese los vidrios:");
-                                String vidrios = input.nextLine();
+                                String vidrios = input.next();
                                 System.out.println("Ingrese la Transmicion:");
-                                String transmision = input.nextLine();
+                                String transmision = input.next();
                                 if (tipoVe.equals(TipoVehiculo.CAMIONETA)) {
                                     System.out.println("Ingrese la Traccion:");
                                     String traccion = input.nextLine();
@@ -93,7 +95,7 @@ public class Vendedor extends Usuario {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         System.out.println("Ingrese placa: ");
-        String placa = sc.nextLine();
+        String placa = sc.next();
         Vehiculo v = filtrarPlaca(placa);
         System.out.println(v.getMarca() + " " + v.getModelo() + "Precio: " + v.getPrecio());
         ArrayList<Oferta> ofertas = v.getOfertas();
