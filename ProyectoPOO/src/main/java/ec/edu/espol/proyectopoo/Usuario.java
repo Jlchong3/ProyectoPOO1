@@ -29,15 +29,14 @@ public class Usuario {
     public void registrarUsuario(int u) {
         Scanner input = new Scanner(System.in);
         input.useDelimiter("\n");
-        String nombres,apellidos,organizacion,email,clave ;
-        
         System.out.println("Ingrese sus nombres: ");
-        nombres = input.next();
+        String nombres = input.next();
         System.out.println("Ingrese sus apellidos: ");
-        apellidos = input.next();
+        String apellidos = input.next();
         System.out.println("Ingrese la Organización: ");
-        organizacion = input.next();
+        String organizacion = input.next();
         System.out.println("Ingrese su correo electrónico: ");
+<<<<<<< HEAD
 <<<<<<< HEAD
         String email = input.nextLine();
         System.out.println("Ingrese su clave: ");
@@ -48,8 +47,11 @@ public class Usuario {
         catch(NoSuchAlgorithmException e){}; 
 =======
         email = input.next();
+=======
+        String email = input.next();
+>>>>>>> 3be36bd (Revert "some changes")
         System.out.println("Ingrese su clave: ");
-        clave = input.next();
+        String clave = input.next();
         // clave = hash(clave);
 >>>>>>> a3374c7 (some changes)
         if(u==1){
