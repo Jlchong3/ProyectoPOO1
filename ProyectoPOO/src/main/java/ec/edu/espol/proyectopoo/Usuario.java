@@ -38,6 +38,13 @@ public class Usuario {
         System.out.println("Ingrese su correo electrónico: ");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> afd3903 (Revert "some changes")
+>>>>>>> de18ac1 (Revert "some changes")
         String email = input.nextLine();
         System.out.println("Ingrese su clave: ");
         String clave = input.nextLine();
@@ -45,6 +52,11 @@ public class Usuario {
             clave = Utilitaria.codificarHash(clave);
         }
         catch(NoSuchAlgorithmException e){}; 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> de18ac1 (Revert "some changes")
 =======
         email = input.next();
 =======
@@ -54,6 +66,10 @@ public class Usuario {
         String clave = input.next();
         // clave = hash(clave);
 >>>>>>> a3374c7 (some changes)
+<<<<<<< HEAD
+=======
+>>>>>>> afd3903 (Revert "some changes")
+>>>>>>> de18ac1 (Revert "some changes")
         if(u==1){
             Vendedor vendedor = new Vendedor(nombres, apellidos, organizacion, email, clave);
             if (vendedor.validar_correo("Vendedores.txt"))
