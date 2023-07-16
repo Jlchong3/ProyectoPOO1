@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -65,6 +68,56 @@ public class Utilitaria {
         }
         return false;
     }
+        public void registrarUsuario(int u) {
+        Scanner input = new Scanner(System.in);
+        String nombres,apellidos,organizacion,email,clave ;
+        
+        input.useDelimiter("\n");
+        System.out.println("Ingrese sus nombres: ");
+        nombres = input.next();
+        System.out.println("Ingrese sus apellidos: ");
+        apellidos = input.next();
+        System.out.println("Ingrese la Organización: ");
+        organizacion = input.next();
+        System.out.println("Ingrese su correo electrónico: ");
+        email = input.nextLine();
+        System.out.println("Ingrese su clave: ");
+        clave = input.nextLine();
+        try{
+            clave = Utilitaria.codificarHash(clave);
+        }
+        catch(NoSuchAlgorithmException e){}; 
+        // clave = hash(clave);
+        if(u==1){
+            Vendedor vendedor = new Vendedor(nombres, apellidos, organizacion, email, clave);
+            if (vendedor.validar_correo("Vendedores.txt"))
+                System.out.println("El correo ya existe");
+            else {
+                vendedor.registrar("Vendedores.txt");
+                System.out.println("Se ha registrado exitosamente");
+            }
+        }
+        else if(u==2){
+            Comprador comprador = new Comprador(nombres, apellidos, organizacion, email, clave);
+            if (comprador.validar_correo("Compradores.txt"))
+                System.out.println("El correo ya existe");
+            else {
+                comprador.registrar("Compradores.txt");
+                System.out.println("Se ha registrado exitosamente");
+            }
+        }
+        input.close();
+    }
+    public static boolean validaNum(String entrada) {
+        for (char c : entrada.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
 
 

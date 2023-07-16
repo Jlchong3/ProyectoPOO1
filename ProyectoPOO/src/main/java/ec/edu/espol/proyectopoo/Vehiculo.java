@@ -1,5 +1,8 @@
 package ec.edu.espol.proyectopoo;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Vehiculo {
@@ -50,5 +53,17 @@ public class Vehiculo {
 
     public double getPrecio(){
         return this.precio;
+    }
+
+    public String toString(){
+        return this.tipo+","+this.placa+","+this.marca+","+this.modelo+","+this.tipoDeMotor+","+this.año+","+this.recorrido+","+this.color+","+this.tipoCombustible+","+this.precio;
+    }
+
+    public void add_vehiculotxt(){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File("Vehiculos.txt"),true))){
+            pw.println(this.toString());
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }   
     }
 }

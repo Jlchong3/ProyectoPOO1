@@ -11,4 +11,10 @@ public class Auto extends Vehiculo {
         this.transmision = transmision;
         this.vidrios = vidrios;
     }
+
+    @Override
+    public String toString(){
+        return super.toString()+","+this.transmision+","+this.vidrios;
+    }
+
 }

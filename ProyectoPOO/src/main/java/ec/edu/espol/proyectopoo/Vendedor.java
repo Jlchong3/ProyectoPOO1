@@ -25,10 +25,9 @@ public class Vendedor extends Usuario {
                     Scanner input = new Scanner(System.in);
                     input.useDelimiter("\n");
                     input.useLocale(Locale.US);
-                    String placa,marca,modelo,motor,color,combustible;
+                    String placa, marca, modelo, motor, color, combustible;
                     int año;
-                    double recorrido,precio;
-
+                    double recorrido, precio;
                     System.out.println("Ingrese el Tipo de Vehiculo: ");
                     TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
                     System.out.println("Ingrese la placa del vehiculo: ");
@@ -60,6 +59,7 @@ public class Vendedor extends Usuario {
                                 Vehiculo ve = new Vehiculo(tipoVe, placa, marca, modelo, motor, año, recorrido, color,
                                         combustible, precio);
                                 this.vehiculos.add(ve);
+                                ve.add_vehiculotxt();
                             } else {
                                 System.out.println("Ingrese los vidrios:");
                                 String vidrios = input.next();
@@ -69,14 +69,15 @@ public class Vendedor extends Usuario {
                                     System.out.println("Ingrese la Traccion:");
                                     String traccion = input.nextLine();
                                     Vehiculo ve = new Camioneta(tipoVe, placa, marca, modelo, motor, año, recorrido,
-                                            color, combustible, precio, vidrios, transmision, traccion);
+                                            color, combustible, precio, transmision, vidrios, traccion);
                                     this.vehiculos.add(ve);
+                                    ve.add_vehiculotxt();
                                 } else {
                                     Vehiculo ve = new Auto(tipoVe, placa, marca, modelo, motor, año, recorrido, color,
                                             combustible, precio, transmision, vidrios);
                                     this.vehiculos.add(ve);
+                                    ve.add_vehiculotxt();
                                 }
-
                             }
 
                         }
@@ -90,13 +91,8 @@ public class Vendedor extends Usuario {
         }
     }
 
-    public String toString() {
-        return nombres + "," + apellidos + "," + organizacion + "," + email + "," + clave;
-    }
-
-
-    public void aceptarOferta(){
-        String[] opciones = {"1. Siguiente Oferta", "2. Anterior Oferta","3. Aceptar Oferta"};
+    public void aceptarOferta() {
+        String[] opciones = { "1. Siguiente Oferta", "2. Anterior Oferta", "3. Aceptar Oferta" };
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         System.out.println("Ingrese placa: ");
@@ -108,23 +104,23 @@ public class Vendedor extends Usuario {
         System.out.println("Se han realizado " + ofertas.size() + " ofertas");
         int i = 0;
         int accion = 0;
-        do{
-            System.out.println("\nOferta " + (i+1));
+        do {
+            System.out.println("\nOferta " + (i + 1));
             System.out.println(ofertas.get(i));
-            for (String op : opciones){
+            for (String op : opciones) {
                 System.out.println(op);
             }
 
-            do{
+            do {
                 System.out.println("Ingrese el numero de su opcion: ");
                 accion = sc.nextInt();
-            }while((i == 0 && accion == 2) || (i == ofertas.size()-1 && accion == 1) || (accion < 1 || accion > 3));
+            } while ((i == 0 && accion == 2) || (i == ofertas.size() - 1 && accion == 1) || (accion < 1 || accion > 3));
 
             if (accion == 1)
                 i++;
             else if (accion == 2)
                 i--;
-        }while(accion != 3);
+        } while (accion != 3);
         Oferta ofAceptada = ofertas.get(i);
         Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
         sc.close();
