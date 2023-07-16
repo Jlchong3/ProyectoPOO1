@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @author angelozurita
  */
 public class Util {
+    // la cree por si acaso pero si no se utiliza se la elimina xd
     
     private Util(){}
 

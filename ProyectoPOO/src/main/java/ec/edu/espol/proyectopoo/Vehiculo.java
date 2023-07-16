@@ -19,6 +19,8 @@ public class Vehiculo {
     protected Vendedor vendedor;
     protected ArrayList<Oferta> ofertas;
 
+    public Vehiculo(){};
+    
     public Vehiculo(TipoVehiculo tipo, String placa, String marca, String modelo, String tipoDeMotor, int año,
             double recorrido, String color, String tipoCombustible, double precio) {
         this.tipo = tipo;
