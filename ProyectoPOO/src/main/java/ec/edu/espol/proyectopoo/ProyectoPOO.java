@@ -10,9 +10,9 @@ public class ProyectoPOO {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         sc.useLocale(Locale.US);
-        ArrayList<Oferta> ofertas = Oferta.readfile("Oferta.txt");
+        ArrayList<Oferta> ofertas = Oferta.readfile("Ofertas.txt");
         ArrayList<Vehiculo> vehiculos = Vehiculo.readfile("Vehiculos.txt");
-        ArrayList<Usuario> compradores = Usuario.readfile("Comprandorestxt");
+        ArrayList<Usuario> compradores = Usuario.readfile("Compradores.txt");
         ArrayList<Usuario> vendedores = Usuario.readfile("Vendedores.txt");
         Vehiculo.link(vehiculos, vendedores);
         Oferta.link(ofertas, vehiculos, compradores);
@@ -24,7 +24,7 @@ public class ProyectoPOO {
             else if(i == 2)
                 i = Utilitaria.menu(sc,i, vendedores);
             else
-                i = Utilitaria.menu(sc,i,vendedores);
+                i = Utilitaria.menu(sc,i,vendedores); //da igual que lista se pase 
         }while(i != 3);
     }
     

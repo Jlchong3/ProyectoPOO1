@@ -125,7 +125,20 @@ public class Utilitaria {
         input.close();
         return Integer.parseInt(res);
     }
-
+    
+    public static int int_valido_rango(Scanner input, String rang1,String rang2){
+        String rango = "["+rang1+"-"+rang2+"]+";
+        String res;
+        System.out.println("Ingresa la opción: ");
+        res = input.next();
+        while (!(res.matches(rango))|| res.length()>1){
+        System.out.println("Opción Invalida");
+        System.out.println("Ingresa la opción: ");
+        res = input.next();}
+        input.close();
+        return Integer.parseInt(res);
+    }
+    
     public static double doubleVali(Scanner input) {
         int con;
         String str;
@@ -157,30 +170,30 @@ public class Utilitaria {
     public static int menu(Scanner sc, int i, ArrayList<Usuario> usuarios){
         int menu = i;
         if (i == 0){
-             do{
+             
                 System.out.println("1. Comprador\n2. Vendedor\n3. Salir");
                 try{
-                    menu = sc.nextInt();
+                    menu = Utilitaria.int_valido_rango(sc,"1","3");
                 }
                 catch (Exception e){
                     System.out.println("Ingrese un numero para iniciar");
                 }
-            }while(menu < 1 || menu>3);
+            
             return menu;
              
         }
     
         else if(i == 1){
             int op = 0;
-            do{
+          
                 System.out.println("1. Registrar un nuevo comprador\n2. Ofertar por un vehículo\n3. Regresar");
                 try{
-                    op = sc.nextInt();
+                    op = Utilitaria.int_valido_rango(sc,"1","3");;
                 }
                 catch (Exception e){
                     System.out.println("Ingrese un numero para iniciar");
                 }
-            }while(op < 1 || op>3);
+            
             if(op == 1){
                 Utilitaria.registrarUsuario(i);
             }
@@ -207,15 +220,15 @@ public class Utilitaria {
         }
         else if (i == 2){
             int op = 0;
-            do{
+            
                 System.out.println("1. Registrar un nuevo vendedor\n2. Registrar un nuevo vehiculo\n3. Aceptar oferta\n4. Regresar");
                 try{
-                    op = sc.nextInt();
+                    op = Utilitaria.int_valido_rango(sc,"1","4");;
                 }
                 catch (Exception e){
                     System.out.println("Ingrese un numero para iniciar");
                 }
-            }while(op < 1 || op>4);
+            
             if (op == 1){
                 Utilitaria.registrarUsuario(i);
             }

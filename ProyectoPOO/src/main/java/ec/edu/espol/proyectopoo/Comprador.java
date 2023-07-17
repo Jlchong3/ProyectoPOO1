@@ -38,9 +38,6 @@ public class Comprador extends Usuario {
         for (String r : res.split("")){
             respuestas.add(Integer.parseInt(r));
             }
-
-
-
         String tipoVe="";
         int rangorecorrido1=-1, rangorecorrido2=-1, rangoanio1=-1, rangoanio2=-1, rangoprecio1=-1, rangoprecio2=-1; 
         if (respuestas.contains(1)) {
