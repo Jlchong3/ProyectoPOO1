@@ -15,86 +15,69 @@ public class Vendedor extends Usuario {
         this.vehiculos = new ArrayList<>();
     }
 
-    public void nuevoVehiculo(String email, String clave, String nomfile) {
-        String hash;
-        try (Scanner sc = new Scanner(new File(nomfile))) {
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                String[] tokens = linea.split(",");
-                if (tokens[3].equals(clave)) {
-                    Scanner input = new Scanner(System.in);
-                    input.useDelimiter("\n");
-                    input.useLocale(Locale.US);
-                    String placa, marca, modelo, motor, color, combustible;
-                    int año;
-                    double recorrido, precio;
-                    System.out.println("Ingrese el Tipo de Vehiculo: ");
-                    TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
-                    System.out.println("Ingrese la placa del vehiculo: ");
-                    placa = input.next();
-                    System.out.println("Ingrese la marca del vehiculo: ");
-                    marca = input.next();
-                    System.out.println("Ingrese el modelo del vehiculo: ");
-                    modelo = input.next();
-                    System.out.println("Ingrese el tipo de motor del vehiculo: ");
-                    motor = input.next();
-                    System.out.println("Ingrese el ano del vehiculo: ");
-                    año = input.nextInt();
-                    System.out.println("Ingese el recorrido del vehiculo:");
-                    recorrido = input.nextDouble();
-                    System.out.println("Ingrese el color del vehiculo: ");
-                    color = input.next();
-                    System.out.println("Ingrese tipo Combustible del vehiculo: ");
-                    combustible = input.next();
-                    System.out.println("Ingrese el precio del vehiculo:");
-                    precio = input.nextDouble();
 
-                    for (Vehiculo v : this.vehiculos) {
-                        if (v.getPlaca() == placa) {
-                            System.out.println("El vehiculo ya existe");
+    public void nuevoVehiculo(Scanner input) {
+        String placa, marca, modelo, motor, color, combustible;
+        int año;
+        double recorrido, precio;
+        System.out.println("Ingrese el Tipo de Vehiculo: ");
+        TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
+        System.out.println("Ingrese la placa del vehiculo: ");
+        placa = input.next();
+        System.out.println("Ingrese la marca del vehiculo: ");
+        marca = input.next();
+        System.out.println("Ingrese el modelo del vehiculo: ");
+        modelo = input.next();
+        System.out.println("Ingrese el tipo de motor del vehiculo: ");
+        motor = input.next();
+        System.out.println("Ingrese el año del vehiculo: ");
+        año = input.nextInt();
+        System.out.println("Ingese el recorrido del vehiculo:");
+        recorrido = input.nextDouble();
+        System.out.println("Ingrese el color del vehiculo: ");
+        color = input.next();
+        System.out.println("Ingrese tipo Combustible del vehiculo: ");
+        combustible = input.next();
+        System.out.println("Ingrese el precio del vehiculo:");
+        precio = input.nextDouble();
 
-                        } else {
-                            if (tipoVe.equals(TipoVehiculo.MOTO)) {
-
-                                Vehiculo ve = new Vehiculo(tipoVe, placa, marca, modelo, motor, año, recorrido, color,
-                                        combustible, precio);
-                                this.vehiculos.add(ve);
-                                ve.add_vehiculotxt();
-                            } else {
-                                System.out.println("Ingrese los vidrios:");
-                                String vidrios = input.next();
-                                System.out.println("Ingrese la Transmicion:");
-                                String transmision = input.next();
-                                if (tipoVe.equals(TipoVehiculo.CAMIONETA)) {
-                                    System.out.println("Ingrese la Traccion:");
-                                    String traccion = input.nextLine();
-                                    Vehiculo ve = new Camioneta(tipoVe, placa, marca, modelo, motor, año, recorrido,
-                                            color, combustible, precio, transmision, vidrios, traccion);
-                                    this.vehiculos.add(ve);
-                                    ve.add_vehiculotxt();
-                                } else {
-                                    Vehiculo ve = new Auto(tipoVe, placa, marca, modelo, motor, año, recorrido, color,
-                                            combustible, precio, transmision, vidrios);
-                                    this.vehiculos.add(ve);
-                                    ve.add_vehiculotxt();
-                                }
-                            }
-
-                        }
-
+        for (Vehiculo v : this.vehiculos) {
+            if (v.getPlaca() == placa) {
+            System.out.println("El vehiculo ya existe");
+            } else {
+                if (tipoVe.equals(TipoVehiculo.MOTO)) {
+                    Vehiculo ve = new Vehiculo(tipoVe, placa,this.email,marca, modelo, motor, año, recorrido, color,combustible, precio);
+                    this.vehiculos.add(ve);
+                    ve.add_vehiculotxt();
+                } 
+                else {
+                    System.out.println("Ingrese los vidrios:");
+                    String vidrios = input.next();
+                    System.out.println("Ingrese la Transmicion:");
+                    String transmision = input.next();
+                    if (tipoVe.equals(TipoVehiculo.CAMIONETA)) {
+                    System.out.println("Ingrese la Traccion:");
+                    String traccion = input.nextLine();
+                    Vehiculo ve = new Camioneta(tipoVe, placa,this.email,marca, modelo, motor, año, recorrido,color, combustible, precio, transmision, vidrios, traccion);
+                    this.vehiculos.add(ve);
+                    ve.add_vehiculotxt();
+                    } 
+                    else {
+                        Vehiculo ve = new Auto(tipoVe, placa,this.email, marca, modelo, motor, año, recorrido, color,combustible, precio, transmision, vidrios);
+                        this.vehiculos.add(ve);
+                        ve.add_vehiculotxt();
                     }
-                    input.close();
                 }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void aceptarOferta() {
-        String[] opciones = { "1. Siguiente Oferta", "2. Anterior Oferta", "3. Aceptar Oferta" };
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+            }
+
+        }
+        input.close();
+    }     
+    
+
+    public void aceptarOferta(Scanner sc) {
+        String[] opciones = { "1. Siguiente Oferta", "2. Anterior Oferta", "3. Aceptar Oferta", "4. Salir" };
         System.out.println("Ingrese placa: ");
         String placa = sc.next();
         Vehiculo v = filtrarPlaca(placa);
@@ -120,10 +103,12 @@ public class Vendedor extends Usuario {
                 i++;
             else if (accion == 2)
                 i--;
-        } while (accion != 3);
-        Oferta ofAceptada = ofertas.get(i);
-        Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
-        sc.close();
+        } while (accion != 3 && accion != 4);
+        if (accion == 3){
+            Oferta ofAceptada = ofertas.get(i);
+            Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
+            sc.close();
+        }
     }
 
     public Vehiculo filtrarPlaca(String placa) {
@@ -133,4 +118,6 @@ public class Vendedor extends Usuario {
         }
         return null;
     }
+
+
 }
