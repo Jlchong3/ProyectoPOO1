@@ -33,7 +33,14 @@ public class Oferta {
     public String getIdVehiculo(){
         return idVehiculo;
     }
+    
+    public void setComprador(Comprador comprador){
+        this.comprador = comprador;
+    }
 
+    public void setVehiculo(Vehiculo vehiculo){
+        this.vehiculo = vehiculo;
+    }
     public void add_ofertatxt(){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File("Oferta.txt"),true))){
             pw.println(this.totxt());
@@ -55,5 +62,16 @@ public class Oferta {
             System.out.println(e.getMessage());
         }
         return ofertas;
+    }
+    public static void link(ArrayList<Oferta> ofertas,ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> compradores) {
+        for(Oferta f:ofertas) {
+            Comprador comprador = (Comprador)Utilitaria.filtrar_usuario(f.correoComprador,compradores);
+            Vehiculo vehiculo = Vehiculo.filtrar_vehiculo_placa(f.idVehiculo,vehiculos);
+            f.setComprador(comprador);
+            f.setVehiculo(vehiculo);
+            comprador.getOfertas().add(f);
+            vehiculo.getOfertas().add(f);
+
+        }
     }
 }

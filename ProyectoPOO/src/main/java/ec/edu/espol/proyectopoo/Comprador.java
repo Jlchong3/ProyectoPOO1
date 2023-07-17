@@ -13,6 +13,10 @@ public class Comprador extends Usuario {
         this.ofertas = new ArrayList<>();
     }
 
+    public ArrayList<Oferta> getOfertas(){
+        return this.ofertas;
+    }
+
     public static ArrayList<Vehiculo> filtrar_Vehiculos() {
         ArrayList<Vehiculo> vehiculos_filtrados = new ArrayList<>();
         Scanner input = new Scanner(System.in);

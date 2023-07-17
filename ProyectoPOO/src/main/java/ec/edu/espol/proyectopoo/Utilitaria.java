@@ -74,6 +74,7 @@ public class Utilitaria {
             if (correo == u.getCorreo())
                 return u;
         }
+        return null;
     }
 
     public static void registrarUsuario(int u) {
@@ -202,10 +203,8 @@ public class Utilitaria {
                 menu = 0;
                 return menu;
             }
-
             return menu;
-
-
+        }
         else if (i == 2){
             int op = 0;
             do{
@@ -230,8 +229,9 @@ public class Utilitaria {
                     v.nuevoVehiculo(sc);
                 }
                 else{
-                    System.out.println("El usuario o la contraseña es incorrecto")
+                    System.out.println("El usuario o la contraseña es incorrecto");
                 }
+            }
             else if(op == 3){
                 System.out.println("Ingrese su correo:");
                 String cor = sc.next();
@@ -247,10 +247,10 @@ public class Utilitaria {
             }
             else{
                 menu = 0;
-                return menu
+                return menu;
             }
             return menu;
         }
+        return -1;
     }
-}
 }

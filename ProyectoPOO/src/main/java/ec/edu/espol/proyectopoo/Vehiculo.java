@@ -60,6 +60,10 @@ public class Vehiculo {
         return this.precio;
     }
 
+    public void setVendedor(Vendedor vendedor){
+        this.vendedor = vendedor;
+    }
+
     public String toString(){
         return this.tipo+","+this.placa+","+this.correo_vendedor+","+this.marca+","+this.modelo+","+this.tipoDeMotor+","+this.año+","+this.recorrido+","+this.color+","+this.tipoCombustible+","+this.precio;
     }
@@ -95,4 +99,21 @@ public class Vehiculo {
         }
         return vehiculos;
     }
+
+    public static Vehiculo filtrar_vehiculo_placa(String placa,ArrayList<Vehiculo> vehiculos){
+        for(Vehiculo v:vehiculos){
+            if(v.placa == placa)
+                return v;
+        }
+        return null;
+    }
+
+    public static void link(ArrayList<Vehiculo> vehiculos,ArrayList<Usuario> vendedores){
+        for(Vehiculo v:vehiculos){
+            Vendedor vendedor = (Vendedor)Utilitaria.filtrar_usuario(v.correo_vendedor,vendedores);
+            v.setVendedor(vendedor);
+            vendedor.getArrayList_Vehiculos().add(v);
+        }
+    }
+
 }

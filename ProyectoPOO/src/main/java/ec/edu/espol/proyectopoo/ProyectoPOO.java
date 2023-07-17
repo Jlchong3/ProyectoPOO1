@@ -12,8 +12,20 @@ public class ProyectoPOO {
         sc.useLocale(Locale.US);
         ArrayList<Oferta> ofertas = Oferta.readfile("Oferta.txt");
         ArrayList<Vehiculo> vehiculos = Vehiculo.readfile("Vehiculos.txt");
-        ArrayList<Usuario> comprodores = Usuario.readfile("Comprandorestxt");
+        ArrayList<Usuario> compradores = Usuario.readfile("Comprandorestxt");
         ArrayList<Usuario> vendedores = Usuario.readfile("Vendedores.txt");
+        Vehiculo.link(vehiculos, vendedores);
+        Oferta.link(ofertas, vehiculos, compradores);
+
+        int i = 0;
+        do{
+            if (i == 1)
+                i = Utilitaria.menu(sc, i, compradores);
+            else if(i == 2)
+                i = Utilitaria.menu(sc,i, vendedores);
+            else
+                i = Utilitaria.menu(sc,i,vendedores);
+        }while(i != 3);
     }
 }
 

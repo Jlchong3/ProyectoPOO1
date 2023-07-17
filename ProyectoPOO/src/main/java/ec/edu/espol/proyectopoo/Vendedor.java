@@ -15,7 +15,10 @@ public class Vendedor extends Usuario {
         this.vehiculos = new ArrayList<>();
     }
 
-
+    public ArrayList<Vehiculo> getArrayList_Vehiculos(){
+        return this.vehiculos;
+    }
+    
     public void nuevoVehiculo(Scanner input) {
         String placa, marca, modelo, motor, color, combustible;
         int año;
@@ -107,6 +110,7 @@ public class Vendedor extends Usuario {
         if (accion == 3){
             Oferta ofAceptada = ofertas.get(i);
             Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
+            this.vehiculos.remove(v);
             sc.close();
         }
     }
@@ -118,6 +122,5 @@ public class Vendedor extends Usuario {
         }
         return null;
     }
-
 
 }
