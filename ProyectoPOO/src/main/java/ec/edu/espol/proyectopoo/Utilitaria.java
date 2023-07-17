@@ -158,7 +158,7 @@ public class Utilitaria {
         int menu = i;
         if (i == 0){
              do{
-                System.out.println("1. Comprador\n 2. Vendedor\n 3. Salir");
+                System.out.println("1. Comprador\n2. Vendedor\n3. Salir");
                 try{
                     menu = sc.nextInt();
                 }
