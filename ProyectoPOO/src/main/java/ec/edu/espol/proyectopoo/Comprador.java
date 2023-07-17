@@ -17,7 +17,7 @@ public class Comprador extends Usuario {
         return this.ofertas;
     }
 
-    public static ArrayList<Vehiculo> filtrar_Vehiculos() {
+    public static ArrayList<Vehiculo> filtrar_Vehiculos(ArrayList<Vehiculo> vehiculos) {
         ArrayList<Vehiculo> vehiculos_filtrados = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         input.useDelimiter("\n");
@@ -46,7 +46,6 @@ public class Comprador extends Usuario {
         }
         if (respuestas.contains(2)) {
             System.out.println("Ingrese el rango del recorrido: ");
-            System.out.println("Ejemplo: 1000 - 2000");
             System.out.println("Ingrese el primer rango del recorrido");
             rangorecorrido1 = Utilitaria.int_validado_pos(input);
             System.out.println("Ingrese el segundo rango del recorrido");
@@ -55,7 +54,6 @@ public class Comprador extends Usuario {
         if (respuestas.contains(3)) {
             
             System.out.println("Ingrese el rango del Año: ");
-            System.out.println("Ejemplo: 2012 - 2020");
             System.out.println("Ingrese el primer rango del Año");
             rangoanio1 = Utilitaria.int_validado_pos(input);
             System.out.println("Ingrese el segundo rango del Año");
@@ -63,7 +61,6 @@ public class Comprador extends Usuario {
         }
         if (respuestas.contains(4)) {
             System.out.println("Ingrese el rango del Precio: ");
-            System.out.println("Ejemplo: 1000 - 2000");
             System.out.println("Ingrese el primer rango del Precio");
             rangoprecio1 = Utilitaria.int_validado_pos(input);
             System.out.println("Ingrese el segundo rango del Precio");
@@ -82,31 +79,12 @@ public class Comprador extends Usuario {
             rangoprecio2 = Integer.MAX_VALUE;
         }
 
-        input.close();
         Vehiculo v1 = new Vehiculo();
-        try (Scanner sc = new Scanner(new File("Vehiculos.txt"))) {
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                String[] tokens = linea.split(",");
-                if(TipoVehiculo.MOTO.equals(TipoVehiculo.valueOf(tokens[0]))){
-                    v1 = new Vehiculo(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]));
-                }
-                else if(TipoVehiculo.AUTO.equals(TipoVehiculo.valueOf(tokens[0]))){
-                    v1 = new Auto(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12]);
-                }
-                else{
-                    v1 = new Camioneta(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12],tokens[13]);
-                }
-                double recorrido =  Integer.parseInt(tokens[7]);
-                int anio = Integer.parseInt(tokens[6]);
-                double precio = Double.parseDouble(tokens[10]);
-                if ((tipoVe=="" || tipoVe.equals(tokens[0])) && recorrido >=rangorecorrido1 && recorrido<=rangorecorrido2 && anio >= rangoanio1 && anio<= rangoanio2 && precio>= rangoprecio1 && precio <= rangoprecio2 )
+        for (Vehiculo veh : vehiculos){
+            if (tipoVe.equals(veh.getTipo()) && veh.getRecorrido() >=rangorecorrido1 && veh.getRecorrido()<=rangorecorrido2 && veh.getAño() >= rangoanio1 && veh.getAño()<= rangoanio2 && veh.getPrecio()>= rangoprecio1 && veh.getPrecio() <= rangoprecio2 )
                     vehiculos_filtrados.add(v1);
-                }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            }
+            
         return vehiculos_filtrados;
     }
 
@@ -175,5 +153,21 @@ public class Comprador extends Usuario {
             }
         }while(oferta);
     }
+    
+    public static ArrayList<Usuario> readfile(String nomfile){
+        ArrayList<Usuario> lista_llena= new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(nomfile))){
+            while(sc.hasNextLine()){
+                String linea = sc.nextLine();
+                String[] tokens = linea.split(",");
+                Usuario c1 = new Comprador(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4]);
+                lista_llena.add(c1);
+            }
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista_llena;
+    }
+    
 
 }

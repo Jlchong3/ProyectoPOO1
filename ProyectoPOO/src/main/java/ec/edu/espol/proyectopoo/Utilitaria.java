@@ -71,7 +71,7 @@ public class Utilitaria {
 
     public static Usuario filtrar_usuario(String correo, ArrayList<Usuario> usuarios){
         for (Usuario u : usuarios){
-            if (correo == u.getCorreo())
+            if (correo.equals(u.getCorreo()))
                 return u;
         }
         return null;
@@ -114,7 +114,6 @@ public class Utilitaria {
                 System.out.println("Se ha registrado exitosamente");
             }
         }
-        input.close();
     }
 
     public static int int_validado_pos(Scanner input) {
@@ -122,7 +121,6 @@ public class Utilitaria {
         do {
             res = input.next();
         } while (!(res.matches("[0-9]+")));
-        input.close();
         return Integer.parseInt(res);
     }
     
@@ -135,7 +133,6 @@ public class Utilitaria {
         System.out.println("Opción Invalida");
         System.out.println("Ingresa la opción: ");
         res = input.next();}
-        input.close();
         return Integer.parseInt(res);
     }
     
@@ -167,45 +164,33 @@ public class Utilitaria {
         return res2;
     }
 
-    public static int menu(Scanner sc, int i, ArrayList<Usuario> usuarios){
+    public static int menu(Scanner sc, int i, ArrayList<Usuario> usuarios, ArrayList<Vehiculo> vehiculos){
         int menu = i;
         if (i == 0){
              
-                System.out.println("1. Comprador\n2. Vendedor\n3. Salir");
-                try{
-                    menu = Utilitaria.int_valido_rango(sc,"1","3");
-                }
-                catch (Exception e){
-                    System.out.println("Ingrese un numero para iniciar");
-                }
-            
-            return menu;
-             
+            System.out.println("1. Comprador\n2. Vendedor\n3. Salir");
+            menu = Utilitaria.int_valido_rango(sc,"1","3");
+            return menu;  
         }
     
         else if(i == 1){
             int op = 0;
-          
                 System.out.println("1. Registrar un nuevo comprador\n2. Ofertar por un vehículo\n3. Regresar");
-                try{
-                    op = Utilitaria.int_valido_rango(sc,"1","3");;
-                }
-                catch (Exception e){
-                    System.out.println("Ingrese un numero para iniciar");
-                }
-            
-            if(op == 1){
+                op = Utilitaria.int_valido_rango(sc,"1","3");
+          
+            if (op == 1){
                 Utilitaria.registrarUsuario(i);
             }
 
             else if(op == 2){
+                    sc.nextLine();
                     System.out.println("Ingrese su correo:");
-                    String cor = sc.next();
+                    String cor = sc.nextLine();
                     System.out.println("Ingrese su contraseña: ");
-                    String contra = sc.next();
+                    String contra = sc.nextLine();
                     if (Utilitaria.validar_clave(cor,contra,"Compradores.txt")){
-                        Comprador c = (Comprador)filtrar_usuario(cor, usuarios);
-                        c.ofertar_Vehiculo(Comprador.filtrar_Vehiculos());
+                        Comprador c = (Comprador)Utilitaria.filtrar_usuario(cor, usuarios);
+                        c.ofertar_Vehiculo(Comprador.filtrar_Vehiculos(vehiculos));
                     }
                     else{
                         System.out.println("El usuario o la contraseña es incorrecto");
@@ -222,12 +207,7 @@ public class Utilitaria {
             int op = 0;
             
                 System.out.println("1. Registrar un nuevo vendedor\n2. Registrar un nuevo vehiculo\n3. Aceptar oferta\n4. Regresar");
-                try{
-                    op = Utilitaria.int_valido_rango(sc,"1","4");;
-                }
-                catch (Exception e){
-                    System.out.println("Ingrese un numero para iniciar");
-                }
+                op = Utilitaria.int_valido_rango(sc,"1","4");
             
             if (op == 1){
                 Utilitaria.registrarUsuario(i);
@@ -238,7 +218,7 @@ public class Utilitaria {
                 System.out.println("Ingrese su contraseña: ");
                 String contra = sc.next();
                 if (Utilitaria.validar_clave(cor,contra,"Vendedores.txt")){
-                    Vendedor v = (Vendedor)filtrar_usuario(cor,usuarios);
+                    Vendedor v = (Vendedor)Utilitaria.filtrar_usuario(cor,usuarios);
                     v.nuevoVehiculo(sc);
                 }
                 else{
@@ -265,5 +245,15 @@ public class Utilitaria {
             return menu;
         }
         return -1;
+    }
+    
+    public static void vehiculoBorrado(ArrayList<Vehiculo> vehiculos,String nombre){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nombre)))){
+            for (Vehiculo v : vehiculos){
+                pw.println(v.toString());
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            }
     }
 }

@@ -38,8 +38,18 @@ public class Vehiculo {
         this.precio = precio;
         this.ofertas = new ArrayList<>();
     }
-    
 
+    public int getAño() {
+        return año;
+    }
+
+    public double getRecorrido() {
+        return recorrido;
+    }
+    
+    public TipoVehiculo getTipo(){
+        return this.tipo;
+    }
     public String getPlaca() {
         return this.placa;
     }

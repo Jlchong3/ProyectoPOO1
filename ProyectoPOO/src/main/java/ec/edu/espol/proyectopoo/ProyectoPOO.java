@@ -12,19 +12,19 @@ public class ProyectoPOO {
         sc.useLocale(Locale.US);
         ArrayList<Oferta> ofertas = Oferta.readfile("Ofertas.txt");
         ArrayList<Vehiculo> vehiculos = Vehiculo.readfile("Vehiculos.txt");
-        ArrayList<Usuario> compradores = Usuario.readfile("Compradores.txt");
-        ArrayList<Usuario> vendedores = Usuario.readfile("Vendedores.txt");
+        ArrayList<Usuario> compradores = Comprador.readfile("Compradores.txt");
+        ArrayList<Usuario> vendedores = Vendedor.readfile("Vendedores.txt");
         Vehiculo.link(vehiculos, vendedores);
         Oferta.link(ofertas, vehiculos, compradores);
-
+        System.out.println(vehiculos);
         int i = 0;
         do{
             if (i == 1)
-                i = Utilitaria.menu(sc, i, compradores);
+                i = Utilitaria.menu(sc, i, compradores, vehiculos);
             else if(i == 2)
-                i = Utilitaria.menu(sc,i, vendedores);
+                i = Utilitaria.menu(sc,i, vendedores,vehiculos);
             else
-                i = Utilitaria.menu(sc,i,vendedores); //da igual que lista se pase 
+                i = Utilitaria.menu(sc,i,vendedores,vehiculos); //da igual que lista se pase 
         }while(i != 3);
     }
     

@@ -24,7 +24,16 @@ public class Vendedor extends Usuario {
         int año;
         double recorrido, precio;
         System.out.println("Ingrese el Tipo de Vehiculo: ");
-        TipoVehiculo tipoVe = TipoVehiculo.valueOf(input.nextLine());
+        input.nextLine();
+        String tip = input.nextLine();
+        tip = tip.toUpperCase();
+        TipoVehiculo tipoVe;
+        if (tip == "MOTO")
+            tipoVe = TipoVehiculo.MOTO;
+        else if(tip == "AUTO")
+            tipoVe = TipoVehiculo.AUTO;
+        else
+            tipoVe = TipoVehiculo.CAMIONETA;
         System.out.println("Ingrese la placa del vehiculo: ");
         placa = input.next();
         System.out.println("Ingrese la marca del vehiculo: ");
@@ -47,7 +56,8 @@ public class Vendedor extends Usuario {
         for (Vehiculo v : this.vehiculos) {
             if (v.getPlaca() == placa) {
             System.out.println("El vehiculo ya existe");
-            } else {
+            } 
+            else {
                 if (tipoVe.equals(TipoVehiculo.MOTO)) {
                     Vehiculo ve = new Vehiculo(tipoVe, placa,this.email,marca, modelo, motor, año, recorrido, color,combustible, precio);
                     this.vehiculos.add(ve);
@@ -75,7 +85,6 @@ public class Vendedor extends Usuario {
             }
 
         }
-        input.close();
     }     
     
 
@@ -111,7 +120,7 @@ public class Vendedor extends Usuario {
             Oferta ofAceptada = ofertas.get(i);
             Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
             this.vehiculos.remove(v);
-            sc.close();
+            Utilitaria.vehiculoBorrado(this.vehiculos,"Vehiculos.txt");
         }
     }
 
@@ -121,6 +130,21 @@ public class Vendedor extends Usuario {
                 return v;
         }
         return null;
+    }
+    
+    public static ArrayList<Usuario> readfile(String nomfile){
+        ArrayList<Usuario> lista_llena= new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(nomfile))){
+            while(sc.hasNextLine()){
+                String linea = sc.nextLine();
+                String[] tokens = linea.split(",");
+                Usuario c1 = new Vendedor(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4]);
+                lista_llena.add(c1);
+            }
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista_llena;
     }
 
 }
