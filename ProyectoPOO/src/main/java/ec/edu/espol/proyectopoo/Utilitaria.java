@@ -61,7 +61,9 @@ public class Utilitaria {
         try (Scanner sc = new Scanner(new File(nomfile))) {
             while (sc.hasNextLine()) {
                 String[] info = sc.nextLine().split(",");
-                return correo.equals(info[3]) && Utilitaria.codificarHash(clave).equals(info[4]);
+               if (correo.equals(info[3])) {
+                    return correo.equals(info[3]) && Utilitaria.codificarHash(clave).equals(info[4]);
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -16,7 +16,7 @@ public class ProyectoPOO {
         ArrayList<Usuario> vendedores = Vendedor.readfile("Vendedores.txt");
         Vehiculo.link(vehiculos, vendedores);
         Oferta.link(ofertas, vehiculos, compradores);
-        System.out.println(vehiculos);
+ 
         int i = 0;
         do{
             if (i == 1)

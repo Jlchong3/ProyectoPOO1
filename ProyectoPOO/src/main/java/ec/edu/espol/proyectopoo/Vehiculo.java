@@ -88,21 +88,24 @@ public class Vehiculo {
 
     public static ArrayList<Vehiculo> readfile(String nomfile){
         ArrayList<Vehiculo> vehiculos= new ArrayList<>();
-        Vehiculo v1 = new Vehiculo();
+        
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine()){
                 String linea = sc.nextLine();
                 String[] tokens = linea.split(",");
-                if(TipoVehiculo.MOTO.equals(TipoVehiculo.valueOf(tokens[0]))){
-                    v1 = new Vehiculo(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]));
+                if("MOTO".equals(tokens[0].toUpperCase())){
+                   Vehiculo v1 = new Vehiculo(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]));
+                   vehiculos.add(v1);
                 }
-                else if(TipoVehiculo.AUTO.equals(TipoVehiculo.valueOf(tokens[0]))){
-                    v1 = new Auto(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12]);
+                else if("AUTO".equals(tokens[0].toUpperCase())){
+                   Vehiculo v1 = new Auto(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12]);
+                   vehiculos.add(v1);
                 }
                 else{
-                    v1 = new Camioneta(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12],tokens[13]);
+                    Vehiculo v1 = new Camioneta(TipoVehiculo.valueOf(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5],Integer.parseInt(tokens[6]),Double.parseDouble(tokens[7]),tokens[8],tokens[9],Double.parseDouble(tokens[10]),tokens[11],tokens[12],tokens[13]);
+                    vehiculos.add(v1);
                 }
-                vehiculos.add(v1);
+                
             }
         } catch(Exception e){
             System.out.println(e.getMessage());

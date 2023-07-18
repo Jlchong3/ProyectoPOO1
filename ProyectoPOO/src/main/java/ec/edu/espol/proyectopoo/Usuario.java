@@ -3,9 +3,8 @@ package ec.edu.espol.proyectopoo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.security.NoSuchAlgorithmException;
+
 
 
 public class Usuario {
@@ -47,6 +46,7 @@ public class Usuario {
             System.out.println(e.getMessage());
         }
     }
+    
     public String toString() {
         return nombres + "," + apellidos + "," + organizacion + "," + email + "," + clave;
     }

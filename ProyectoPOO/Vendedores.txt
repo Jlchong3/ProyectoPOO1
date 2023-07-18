@@ -1,1 +1,2 @@
 Angelo,Zurita,Espol,angelo@espol,ac081de1f977469c173a9a15db5235ac9e77daaa0afd071057712f31a18779f5
+Luis Fernando ,Romero Rodriguez,ESPOL,lfomero@espol.edu.ec,a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
