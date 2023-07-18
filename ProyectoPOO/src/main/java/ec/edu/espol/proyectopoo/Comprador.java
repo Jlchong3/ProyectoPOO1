@@ -38,11 +38,13 @@ public class Comprador extends Usuario {
         for (String r : res.split("")){
             respuestas.add(Integer.parseInt(r));
             }
-        String tipoVe="";
+        String tipoVe = "";
         int rangorecorrido1=-1, rangorecorrido2=-1, rangoanio1=-1, rangoanio2=-1, rangoprecio1=-1, rangoprecio2=-1; 
         if (respuestas.contains(1)) {
             System.out.println("Ingrese el tipo del vehiculo: ");
-            tipoVe = input.next();
+            do{
+               tipoVe = input.next().toUpperCase();
+            }while(!(tipoVe.equals("MOTO")) && !(tipoVe.equals("CAMIONETA")) && !(tipoVe.equals("AUTO")));
         }
         if (respuestas.contains(2)) {
             System.out.println("Ingrese el rango del recorrido: ");
@@ -79,16 +81,15 @@ public class Comprador extends Usuario {
             rangoprecio2 = Integer.MAX_VALUE;
         }
 
-        Vehiculo v1 = new Vehiculo();
         for (Vehiculo veh : vehiculos){
-            if (tipoVe.equals(veh.getTipo()) && veh.getRecorrido() >=rangorecorrido1 && veh.getRecorrido()<=rangorecorrido2 && veh.getAño() >= rangoanio1 && veh.getAño()<= rangoanio2 && veh.getPrecio()>= rangoprecio1 && veh.getPrecio() <= rangoprecio2 )
-                    vehiculos_filtrados.add(v1);
+            if (tipoVe.equals("") || tipoVe.equals(veh.getTipo().toString()) && veh.getRecorrido() >=rangorecorrido1 && veh.getRecorrido()<=rangorecorrido2 && veh.getAño() >= rangoanio1 && veh.getAño()<= rangoanio2 && veh.getPrecio()>= rangoprecio1 && veh.getPrecio() <= rangoprecio2 )
+                    vehiculos_filtrados.add(veh);
             }
             
         return vehiculos_filtrados;
     }
 
-    public void ofertar_Vehiculo(ArrayList<Vehiculo> vehiculos_filtrados){
+    public void ofertar_Vehiculo(ArrayList<Vehiculo> vehiculos_filtrados, ArrayList<Oferta> ofertass, ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> compradores){
         int cont = 0;
         String res_u;
         Scanner input  = new Scanner(System.in);
@@ -101,12 +102,14 @@ public class Comprador extends Usuario {
             System.out.println("Desea ofertar por este vehiculo?");
             System.out.println("Responda con un: Si o No");
             res_u = Utilitaria.validad_Si_No(input);
-            if(res_u=="si"){
+            if(res_u.equals("si")){
                 System.out.println("Ingrese el monto de la oferta");
                 double monto = Utilitaria.doubleVali(input);
                 Oferta o1 = new Oferta(this.email,vehiculos_filtrados.get(cont).placa,monto);
                 o1.add_ofertatxt();
                 ofertas.add(o1);
+                ofertass.add(o1);
+                Oferta.link(ofertass, vehiculos, compradores);
                 oferta = false;
                 System.out.println("Oferta realizada con exito");    
             }

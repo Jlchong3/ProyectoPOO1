@@ -115,7 +115,7 @@ public class Vehiculo {
 
     public static Vehiculo filtrar_vehiculo_placa(String placa,ArrayList<Vehiculo> vehiculos){
         for(Vehiculo v:vehiculos){
-            if(v.placa == placa)
+            if(v.placa.equals(placa))
                 return v;
         }
         return null;

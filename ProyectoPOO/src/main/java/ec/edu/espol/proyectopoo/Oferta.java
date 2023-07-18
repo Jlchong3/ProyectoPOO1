@@ -42,7 +42,7 @@ public class Oferta {
         this.vehiculo = vehiculo;
     }
     public void add_ofertatxt(){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File("Oferta.txt"),true))){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File("Ofertas.txt"),true))){
             pw.println(this.totxt());
         } catch(Exception e){
             System.out.println(e.getMessage());
@@ -66,12 +66,12 @@ public class Oferta {
     public static void link(ArrayList<Oferta> ofertas,ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> compradores) {
         for(Oferta f:ofertas) {
             Comprador comprador = (Comprador)Utilitaria.filtrar_usuario(f.correoComprador,compradores);
-            Vehiculo vehiculo = Vehiculo.filtrar_vehiculo_placa(f.idVehiculo,vehiculos);
+            Vehiculo vehiculo = new Vehiculo();
+            vehiculo = Vehiculo.filtrar_vehiculo_placa(f.idVehiculo,vehiculos);
             f.setComprador(comprador);
             f.setVehiculo(vehiculo);
             comprador.getOfertas().add(f);
             vehiculo.getOfertas().add(f);
-
         }
     }
 }

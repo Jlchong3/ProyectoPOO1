@@ -1,1 +1,0 @@
-MOTO,123-TPO,lfomero@espol.edu.ec,bmw,moto,motordeMoto,2016,10050.0,negro,super,500.0

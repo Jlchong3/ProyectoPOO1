@@ -17,7 +17,7 @@ public class Vendedor extends Usuario {
         return this.vehiculos;
     }
 
-    public void nuevoVehiculo(Scanner input) {
+    public void nuevoVehiculo(Scanner input, ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> vendedores) {
         String tip, placa, marca, modelo, motor, color, combustible;
         int año;
         double recorrido, precio;
@@ -51,7 +51,7 @@ public class Vendedor extends Usuario {
         System.out.println("Ingrese el precio del vehiculo:");
         precio = input.nextDouble();
         if (this.vehiculos.isEmpty()) {
-            llenarVehiculos(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
+            llenarVehiculos(vehiculos,tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
         } 
         else {
             for (Vehiculo v : this.vehiculos) {
@@ -59,13 +59,14 @@ public class Vendedor extends Usuario {
                     System.out.println("El vehiculo ya existe");
                 } 
                 else {
-                    llenarVehiculos(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
+                    llenarVehiculos(vehiculos,tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
+                    Vehiculo.link(vehiculos, vendedores);
                 }
             }
         }
     }
 
-    public void llenarVehiculos(TipoVehiculo tipoVe, String placa, String email, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, Scanner input) {
+    public void llenarVehiculos(ArrayList<Vehiculo> vehiculo,TipoVehiculo tipoVe, String placa, String email, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, Scanner input) {
         if (tipoVe.equals(TipoVehiculo.MOTO)) {
             Vehiculo ve = new Vehiculo(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio);
             this.vehiculos.add(ve);
@@ -84,16 +85,17 @@ public class Vendedor extends Usuario {
             } else {
                 Vehiculo ve = new Auto(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, transmision, vidrios);
                 this.vehiculos.add(ve);
+                vehiculo.add(ve);
                 ve.add_vehiculotxt();
             }
         }
     }
 
-    public void aceptarOferta(Scanner sc) {
+    public void aceptarOferta(Scanner sc, ArrayList<Oferta> ofertass) {
         String[] opciones = {"1. Siguiente Oferta", "2. Anterior Oferta", "3. Aceptar Oferta", "4. Salir"};
         System.out.println("Ingrese placa: ");
         String placa = sc.next();
-        Vehiculo v = filtrarPlaca(placa);
+        Vehiculo v = Vehiculo.filtrar_vehiculo_placa(placa, this.vehiculos);
         String infoVe = v.getMarca() + " " + v.getModelo();
         System.out.println(infoVe + "Precio: " + v.getPrecio());
         ArrayList<Oferta> ofertas = v.getOfertas();
@@ -120,19 +122,13 @@ public class Vendedor extends Usuario {
         } while (accion != 3 && accion != 4);
         if (accion == 3) {
             Oferta ofAceptada = ofertas.get(i);
-            Utilitaria.enviarConGMail(email, clave, ofAceptada.getCorreoComprador(), infoVe);
+            Utilitaria.enviarConGMail(ofAceptada.getCorreoComprador(),"Oferta de Vehículo", "Su oferta del Vehiculo " + infoVe + " ha sido aceptada.");
+            ofertass.remove(ofAceptada);
             this.vehiculos.remove(v);
+            Utilitaria.ofertaBorrado(ofertass,"Ofertas.txt");
             Utilitaria.vehiculoBorrado(this.vehiculos, "Vehiculos.txt");
+            
         }
-    }
-
-    public Vehiculo filtrarPlaca(String placa) {
-        for (Vehiculo v : this.vehiculos) {
-            if (v.placa.equals(placa)) {
-                return v;
-            }
-        }
-        return null;
     }
 
     public static ArrayList<Usuario> readfile(String nomfile) {

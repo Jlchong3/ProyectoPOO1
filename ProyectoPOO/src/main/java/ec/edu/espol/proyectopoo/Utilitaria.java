@@ -28,34 +28,37 @@ public class Utilitaria {
         return hexString.toString();
     }
 
-    public static void enviarConGMail(String remitente, String clave, String destinatario, String infoVe) {
+ public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+    //La dirección de correo de envío
+    String remitente = "joseluisc31704@gmail.com";
+    //La clave de aplicación obtenida según se explica en este artículo:
+    String claveemail = "";
 
-        Properties props = System.getProperties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
-        props.put("mail.smtp.user", remitente);
-        props.put("mail.smtp.clave", clave); // La clave de la cuenta
-        props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
-        props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
-        props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
+    Properties props = System.getProperties();
+    props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+    props.put("mail.smtp.user", remitente);
+    props.put("mail.smtp.clave", claveemail);    //La clave de la cuenta
+    props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+    props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+    props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
 
-        Session session = Session.getDefaultInstance(props);
-        MimeMessage message = new MimeMessage(session);
+    Session session = Session.getDefaultInstance(props);
+    MimeMessage message = new MimeMessage(session);
 
-        try {
-            message.setFrom(new InternetAddress(remitente));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario)); // Se podrían añadir
-                                                                                               // varios de la misma
-                                                                                               // manera
-            message.setSubject("Oferta del Vehiculo");
-            message.setText("Su oferta del Vehiculo " + infoVe + " ha sido aceptada");
-            Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", remitente, clave);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        } catch (MessagingException me) {
-            me.printStackTrace(); // Si se produce un error
-        }
+    try {
+        message.setFrom(new InternetAddress(remitente));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se podrían añadir varios de la misma manera
+        message.setSubject(asunto);
+        message.setText(cuerpo);
+        Transport transport = session.getTransport("smtp");
+        transport.connect("smtp.gmail.com", remitente, claveemail);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
     }
+    catch (MessagingException me) {
+        me.printStackTrace();   //Si se produce un error
+    }
+  }
 
     public static boolean validar_clave(String correo, String clave, String nomfile) {
         try (Scanner sc = new Scanner(new File(nomfile))) {
@@ -79,7 +82,7 @@ public class Utilitaria {
         return null;
     }
 
-    public static void registrarUsuario(int u) {
+    public static void registrarUsuario(int u, ArrayList<Usuario> usuarios) {
         Scanner input = new Scanner(System.in);
         String nombres, apellidos, organizacion, email, clave;
 
@@ -105,6 +108,7 @@ public class Utilitaria {
                 System.out.println("El correo ya existe");
             else {
                 usuario.registrar("Vendedores.txt");
+                usuarios.add(usuario);
                 System.out.println("Se ha registrado exitosamente");
             }
         } else if (u == 1) {
@@ -113,6 +117,7 @@ public class Utilitaria {
                 System.out.println("El correo ya existe");
             else {
                 usuario.registrar("Compradores.txt");
+                usuarios.add(usuario);
                 System.out.println("Se ha registrado exitosamente");
             }
         }
@@ -166,7 +171,7 @@ public class Utilitaria {
         return res2;
     }
 
-    public static int menu(Scanner sc, int i, ArrayList<Usuario> usuarios, ArrayList<Vehiculo> vehiculos){
+    public static int menu(Scanner sc, int i, ArrayList<Usuario> usuarios, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas){
         int menu = i;
         if (i == 0){
              
@@ -181,7 +186,8 @@ public class Utilitaria {
                 op = Utilitaria.int_valido_rango(sc,"1","3");
           
             if (op == 1){
-                Utilitaria.registrarUsuario(i);
+                Utilitaria.registrarUsuario(i, usuarios);
+                
             }
 
             else if(op == 2){
@@ -192,7 +198,7 @@ public class Utilitaria {
                     String contra = sc.nextLine();
                     if (Utilitaria.validar_clave(cor,contra,"Compradores.txt")){
                         Comprador c = (Comprador)Utilitaria.filtrar_usuario(cor, usuarios);
-                        c.ofertar_Vehiculo(Comprador.filtrar_Vehiculos(vehiculos));
+                        c.ofertar_Vehiculo(Comprador.filtrar_Vehiculos(vehiculos), ofertas, vehiculos, usuarios);
                     }
                     else{
                         System.out.println("El usuario o la contraseña es incorrecto");
@@ -212,7 +218,7 @@ public class Utilitaria {
                 op = Utilitaria.int_valido_rango(sc,"1","4");
             
             if (op == 1){
-                Utilitaria.registrarUsuario(i);
+                Utilitaria.registrarUsuario(i, usuarios);
             }
             else if(op == 2){
                 System.out.println("Ingrese su correo:");
@@ -221,7 +227,7 @@ public class Utilitaria {
                 String contra = sc.next();
                 if (Utilitaria.validar_clave(cor,contra,"Vendedores.txt")){
                     Vendedor v = (Vendedor)Utilitaria.filtrar_usuario(cor,usuarios);
-                    v.nuevoVehiculo(sc);
+                    v.nuevoVehiculo(sc, vehiculos, usuarios);
                 }
                 else{
                     System.out.println("El usuario o la contraseña es incorrecto");
@@ -234,7 +240,7 @@ public class Utilitaria {
                 String contra = sc.next();
                 if (Utilitaria.validar_clave(cor,contra,"Vendedores.txt")){
                     Vendedor v = (Vendedor)filtrar_usuario(cor,usuarios);
-                    v.aceptarOferta(sc);
+                    v.aceptarOferta(sc, ofertas);
                 }
                 else{
                     System.out.println("El usuario o la contraseña es incorrecto");
@@ -253,6 +259,16 @@ public class Utilitaria {
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nombre)))){
             for (Vehiculo v : vehiculos){
                 pw.println(v.toString());
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            }
+    }
+    
+    public static void ofertaBorrado(ArrayList<Oferta> ofertas,String nombre){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nombre)))){
+            for (Oferta o : ofertas){
+                pw.println(o.totxt());
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
