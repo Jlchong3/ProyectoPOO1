@@ -52,11 +52,13 @@ public class Vendedor extends Usuario {
         precio = input.nextDouble();
         if (this.vehiculos.isEmpty()) {
             llenarVehiculos(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
-        } else {
+        } 
+        else {
             for (Vehiculo v : this.vehiculos) {
                 if (v.placa.equals(placa)) {
                     System.out.println("El vehiculo ya existe");
-                } else {
+                } 
+                else {
                     llenarVehiculos(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, input);
                 }
             }

@@ -97,8 +97,8 @@ public class Utilitaria {
         clave = input.next();
         try {
             clave = Utilitaria.codificarHash(clave);
-        } catch (NoSuchAlgorithmException e) {}
-        ;
+        } catch (NoSuchAlgorithmException e) {
+        };
         if (u == 2) {
             Usuario usuario = new Vendedor(nombres, apellidos, organizacion, email, clave);
             if (usuario.validar_correo("Vendedores.txt"))
