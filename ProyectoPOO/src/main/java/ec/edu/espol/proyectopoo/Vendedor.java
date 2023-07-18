@@ -71,6 +71,7 @@ public class Vendedor extends Usuario {
             Vehiculo ve = new Vehiculo(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio);
             this.vehiculos.add(ve);
             ve.add_vehiculotxt();
+            vehiculo.add(ve);
         } else {
             System.out.println("Ingrese los vidrios:");
             String vidrios = input.next();
@@ -82,6 +83,7 @@ public class Vendedor extends Usuario {
                 Vehiculo ve = new Camioneta(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, transmision, vidrios, traccion);
                 this.vehiculos.add(ve);
                 ve.add_vehiculotxt();
+                vehiculo.add(ve);
             } else {
                 Vehiculo ve = new Auto(tipoVe, placa, this.email, marca, modelo, motor, año, recorrido, color, combustible, precio, transmision, vidrios);
                 this.vehiculos.add(ve);

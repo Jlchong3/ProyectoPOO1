@@ -30,9 +30,9 @@ public class Utilitaria {
 
  public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
     //La dirección de correo de envío
-    String remitente = "joseluisc31704@gmail.com";
+    String remitente = "romeroluisfer1807@gmail.com";
     //La clave de aplicación obtenida según se explica en este artículo:
-    String claveemail = "";
+    String claveemail = "jlntgglfiujhhbxx";
 
     Properties props = System.getProperties();
     props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
