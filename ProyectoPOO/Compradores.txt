@@ -1,1 +1,3 @@
 Jose Luis,Chong Acuña,Espol,jose@espol,da248eeaffa573da8c323c3eb56aaf32ec6ce244e401a24c55f30c907d0bbfb5
+Angelo,Zurito,Espol,angelozurita@espol.edu.ec,bbee64540489243e07a1d3d69f572469f25b1a1a115a673715b30ccd5cc17d21
+Angelo,zurita,Espol,angelozurita@espol.edu.ec,bbee64540489243e07a1d3d69f572469f25b1a1a115a673715b30ccd5cc17d21
