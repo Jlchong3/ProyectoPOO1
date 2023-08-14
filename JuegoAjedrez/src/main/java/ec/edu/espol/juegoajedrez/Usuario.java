@@ -107,7 +107,7 @@ public class Usuario implements Serializable {
         if (correos.isEmpty()) {
            return false ; //Me retorna falso, si el correo no se encuentra en el registro de correro de los usuarios
         }
-        else if(usuarios.contains(correo_u)){
+        else if(correos.contains(correo_u)){
             return true ; // Me retorna true,  si el correo se encuentra en el registro de correo de los usuarios
         }
         
