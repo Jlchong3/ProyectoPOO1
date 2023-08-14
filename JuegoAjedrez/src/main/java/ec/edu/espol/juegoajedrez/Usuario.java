@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.contraseña = contraseña;
     }
-
+    
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario;
     }
@@ -133,6 +133,14 @@ public class Usuario implements Serializable {
         return false;   
     }
     
-
+    public static boolean correoValido(String correo){
+        int arroba=0;
+        for(char carac:correo.toCharArray()){
+            if ((carac=='@')) {
+                arroba++;
+            }
+        }
+        return !(arroba>1 ||arroba==0);
+    }
     
 }
