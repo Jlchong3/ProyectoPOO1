@@ -134,14 +134,4 @@ public class Usuario implements Serializable {
         return false;   
     }
     
-    public static boolean correoValido(String correo){
-        int arroba=0;
-        for(char carac:correo.toCharArray()){
-            if ((carac=='@')) {
-                arroba++;
-            }
-        }
-        return !(arroba>1 ||arroba==0);
-    }
-    
 }
