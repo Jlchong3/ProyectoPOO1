@@ -22,6 +22,7 @@ public class Usuario implements Serializable {
     private String nombre_usuario;
     private String correo;
     private String contraseña;
+    private static final long serialVersionUID = 274965647874716638L;
 
     public Usuario(String nombre_usuario, String correo, String contraseña) {
         this.nombre_usuario = nombre_usuario;

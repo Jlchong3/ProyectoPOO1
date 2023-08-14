@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void loginUser(MouseEvent event) {
+    private void loginUser(MouseEvent event) throws IOException {
         
         String e_mail = email.getText();
         String pasw = pwd.getText();
@@ -77,6 +77,12 @@ public class LoginController implements Initializable {
             Alert a =new Alert(Alert.AlertType.ERROR,"Contraseña Invalida");
             a.show();
         }
+        Parent root = FXMLLoader.load(getClass().getResource("tablero.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.setScene(scene);
+        
     }
     
     
