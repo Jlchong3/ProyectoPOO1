@@ -127,11 +127,19 @@ public class Usuario implements Serializable {
         }
         
         int pos_correo = correos.indexOf(correo);
-        if(claves.get(pos_correo).equals(password)){
-            return true;}  //Me retorna true si esa contraseña verdaderamente le pertenece a  ese usuario
-        
+
+        //Me retorna true si esa contraseña verdaderamente le pertenece a  ese usuario
         //Retorna false si la contraseña es incorrecta
-        return false;   
+        return claves.get(pos_correo).equals(password);   
     }
-    
+
+    public static boolean correoValido(String correo){
+        int arroba=0;
+        for(char carac:correo.toCharArray()){
+            if ((carac=='@')) {
+                arroba++;
+            }
+        }
+        return !(arroba>1 ||arroba==0);
+    }
 }
