@@ -9,18 +9,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 /**
  * FXML Controller class
  *
@@ -28,27 +26,25 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
-    
     @FXML
     private PasswordField pwd;
     @FXML
     private TextField email;
-   
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
- 
     @FXML
     private void VentanaRegistrar(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
-        
-        Scene scene = new Scene(root);  //a donde quiere ir 
-        Stage stage = (Stage) email.getScene().getWindow();  // donde estoy
+
+        Scene scene = new Scene(root); // a donde quiere ir
+        Stage stage = (Stage) email.getScene().getWindow(); // donde estoy
         stage.setScene(scene);
     }
 
@@ -62,32 +58,21 @@ public class LoginController implements Initializable {
 
     @FXML
     private void loginUser(MouseEvent event) throws IOException {
-        
         String e_mail = email.getText();
         String pasw = pwd.getText();
-        if (Usuario.correoValido(e_mail)==false) {
-            Alert a =new Alert(Alert.AlertType.ERROR,"El correo Ingresado es INVALIDO");
+        if ((Usuario.correoValido(e_mail) == false) || (e_mail.equals(" ") == true)) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Las credenciales son Invalidos");
             a.show();
-        }
-        
-        if((Usuario.validar_correo(e_mail, "Usuarios.ser")==false) || (Usuario.validar_password(e_mail,pasw, "Usuarios.ser")==false)) {
-            Alert a =new Alert(Alert.AlertType.ERROR,"Correo u Contraseña no es el correcto");
+        } else if ((Usuario.validar_correo(e_mail, "Usuarios.ser") == false)
+                || (Usuario.validar_password(e_mail, pasw, "Usuarios.ser") == false)) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "El Correo o Contraseña no es el correcto");
             a.show();
-        }
-//        if(Usuario.validar_password(e_mail,pasw, "Usuarios.ser")==false){
-//            Alert a =new Alert(Alert.AlertType.ERROR,"Contraseña Invalida");
-//            a.show();
-//        }
-        Parent root = FXMLLoader.load(getClass().getResource("tablero.fxml"));
-        
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) email.getScene().getWindow();
-        stage.setScene(scene);
-        
-    }
-    
-    
+        } else {
+            Parent root = FXMLLoader.load(getClass().getResource("tablero.fxml"));
 
-    
-    
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) email.getScene().getWindow();
+            stage.setScene(scene);
+        }
+    }
 }

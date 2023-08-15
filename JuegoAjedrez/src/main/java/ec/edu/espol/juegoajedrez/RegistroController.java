@@ -58,12 +58,12 @@ public class RegistroController implements Initializable {
         String e_mail = email.getText();
         String pasw = psw.getText();
         String name_user=name.getText();
-        if (Usuario.correoValido(e_mail)==false) {
+        if ((Usuario.correoValido(e_mail)==false)||(e_mail.equals("")==true)) {
             Alert a =new Alert(Alert.AlertType.ERROR,"El correo Ingresado es INVALIDO");
             a.show();
         }
         
-        if (Usuario.validar_correo(e_mail, "Usuarios.ser")==true) {
+        if ((Usuario.validar_correo(e_mail, "Usuarios.ser")==true)&&!(e_mail.equals(""))) {
             Alert a =new Alert(Alert.AlertType.ERROR,"El correo ya esta registrado");
             a.show();
         }else{
