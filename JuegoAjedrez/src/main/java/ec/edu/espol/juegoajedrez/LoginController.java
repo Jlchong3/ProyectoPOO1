@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.juegoajedrez;
 
+import ec.edu.espol.clases_ajedres.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,8 +47,8 @@ public class LoginController implements Initializable {
     private void VentanaRegistrar(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
         
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) email.getScene().getWindow();
+        Scene scene = new Scene(root);  //a donde quiere ir 
+        Stage stage = (Stage) email.getScene().getWindow();  // donde estoy
         stage.setScene(scene);
     }
 
@@ -69,14 +70,14 @@ public class LoginController implements Initializable {
             a.show();
         }
         
-        if (Usuario.validar_correo(e_mail, "Usuarios.ser")==false) {
-            Alert a =new Alert(Alert.AlertType.ERROR,"Correo No existe, por favor registrese");
+        if((Usuario.validar_correo(e_mail, "Usuarios.ser")==false) || (Usuario.validar_password(e_mail,pasw, "Usuarios.ser")==false)) {
+            Alert a =new Alert(Alert.AlertType.ERROR,"Correo u Contraseña no es el correcto");
             a.show();
         }
-        if(Usuario.validar_password(e_mail,pasw, "Usuarios.ser")==false){
-            Alert a =new Alert(Alert.AlertType.ERROR,"Contraseña Invalida");
-            a.show();
-        }
+//        if(Usuario.validar_password(e_mail,pasw, "Usuarios.ser")==false){
+//            Alert a =new Alert(Alert.AlertType.ERROR,"Contraseña Invalida");
+//            a.show();
+//        }
         Parent root = FXMLLoader.load(getClass().getResource("tablero.fxml"));
         
         Scene scene = new Scene(root);

@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.juegoajedrez;
 
+import ec.edu.espol.clases_ajedres.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
