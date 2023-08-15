@@ -14,7 +14,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.juegoajedrez.LoginController">
    <top>
-      <Label prefHeight="36.0" prefWidth="226.0" text="Bienvenido Ajedrez" BorderPane.alignment="CENTER">
+      <Label prefHeight="36.0" prefWidth="221.0" text="Bienvenido Ajedrez" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
@@ -60,7 +60,7 @@
                </font>
             </Label>
             <PasswordField fx:id="pwd" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Hyperlink prefHeight="11.0" prefWidth="122.0" text="Olvido la contraseña?" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Hyperlink prefHeight="23.0" prefWidth="129.0" text="Olvido la contraseña?" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </center>
