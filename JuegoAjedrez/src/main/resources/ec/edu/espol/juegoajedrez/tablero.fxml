@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.juegoajedrez.TableroController">
+<BorderPane maxHeight="780.0" maxWidth="720.0" minHeight="780.0" minWidth="720.0" snapToPixel="false" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.juegoajedrez.TableroController">
    <top>
       <GridPane prefHeight="110.0" prefWidth="720.0" style="-fx-background-color: #395391;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -23,7 +23,7 @@
          <children>
             <ImageView fitHeight="87.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
-                  <Image url="@../../../../../../../piezas/Sample_User_Icon.png" />
+                  <Image url="@../recursos/Sample_User_Icon.png" />
                </image>
             </ImageView>
             <Label prefHeight="37.0" prefWidth="98.0" text="Jugador 1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -46,7 +46,7 @@
          <children>
             <ImageView fitHeight="87.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <image>
-                  <Image url="@../../../../../../../piezas/Sample_User_Icon.png" />
+                  <Image url="@../recursos/Sample_User_Icon.png" />
                </image>
             </ImageView>
             <Label prefHeight="37.0" prefWidth="98.0" text="Jugador 1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -82,17 +82,17 @@
          <children>
             <StackPane fx:id="b7" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="c8" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="2">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackBishop.png" />
+                        <Image url="@../recursos/blackBishop.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -101,17 +101,17 @@
             <StackPane fx:id="c6" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <StackPane fx:id="d7" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="e8" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="4">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackKing.png" />
+                        <Image url="@../recursos/blackKing.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -124,53 +124,53 @@
             <StackPane fx:id="g6" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <StackPane fx:id="f7" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="g8" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="6">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackKnight.png" />
+                        <Image url="@../recursos/blackKnight.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="h7" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="h5" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="7" GridPane.rowIndex="3" />
             <StackPane fx:id="g4" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <StackPane fx:id="b3" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <StackPane fx:id="b3" snapToPixel="false" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <StackPane fx:id="d3" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <StackPane fx:id="a2" style="-fx-background-color: #dfe6f5;" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="c2" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="e2" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -178,73 +178,73 @@
             <StackPane fx:id="h3" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="7" GridPane.rowIndex="5" />
             <StackPane fx:id="g2" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="b1" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteKnight.png" />
+                        <Image url="@../recursos/whiteKnight.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="d1" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteQueen.png" />
+                        <Image url="@../recursos/whiteQueen.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="f1" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="5" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteBishop.png" />
+                        <Image url="@../recursos/whiteBishop.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="h1" style="-fx-background-color: #dfe6f5;" GridPane.columnIndex="7" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteRook.png" />
+                        <Image url="@../recursos/whiteRook.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="a8" style="-fx-background-color: #dfe6f5;">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackRook.png" />
+                        <Image url="@../recursos/blackRook.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="b8" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackKnight.png" />
+                        <Image url="@../recursos/blackKnight.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="c7" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="d8" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="3">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackQueen.png" />
+                        <Image url="@../recursos/blackQueen.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -252,33 +252,33 @@
             <StackPane fx:id="d6" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <StackPane fx:id="e7" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="f8" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="5">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackBishop.png" />
+                        <Image url="@../recursos/blackBishop.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="h8" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="7">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackRook.png" />
+                        <Image url="@../recursos/blackRook.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="g7" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -291,29 +291,29 @@
             <StackPane fx:id="f4" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
             <StackPane fx:id="g5" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
             <StackPane fx:id="h6" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-            <StackPane fx:id="a3" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.rowIndex="5" />
+            <StackPane fx:id="a3" onMouseClicked="#prueba" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.rowIndex="5" />
             <StackPane fx:id="c3" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <StackPane fx:id="b2" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="a7" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="73.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/blackPawn.png" />
+                        <Image url="@../recursos/blackPawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="d2" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
@@ -322,49 +322,49 @@
             <StackPane fx:id="h4" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="7" GridPane.rowIndex="4" />
             <StackPane fx:id="f2" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="h2" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="7" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whitePawn.png" />
+                        <Image url="@../recursos/whitePawn.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="a1" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="70.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteRook.png" />
+                        <Image url="@../recursos/whiteRook.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="c1" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteBishop.png" />
+                        <Image url="@../recursos/whiteBishop.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="e1" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteKing.png" />
+                        <Image url="@../recursos/whiteKing.png" />
                      </image>
                   </ImageView>
                </children></StackPane>
             <StackPane fx:id="g1" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #465373;" GridPane.columnIndex="6" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="71.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../piezas/whiteKnight.png" />
+                        <Image url="@../recursos/whiteKnight.png" />
                      </image>
                   </ImageView>
                </children></StackPane>

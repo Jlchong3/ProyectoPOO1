@@ -157,5 +157,11 @@ public class TableroController implements Initializable {
         // TODO
     }    
 
+    @FXML
+    private void prueba(MouseEvent event) {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION,"prueba");
+        a.show();
+    }
+
     
 }
