@@ -4,14 +4,21 @@
  */
 package ec.edu.espol.juegoajedrez;
 
+import ec.edu.espol.clases_ajedres.Cuadro;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * FXML Controller class
@@ -21,147 +28,58 @@ import javafx.scene.layout.StackPane;
 public class TableroController implements Initializable {
 
     @FXML
-    private StackPane a1;
-    @FXML
-    private StackPane a8;
-    @FXML
-    private StackPane b7;
-    @FXML
-    private StackPane c8;
-    @FXML
-    private StackPane a6;
-    @FXML
-    private StackPane b5;
-    @FXML
-    private StackPane c6;
-    @FXML
-    private StackPane d7;
-    @FXML
-    private StackPane e8;
-    @FXML
-    private StackPane e6;
-    @FXML
-    private StackPane d5;
-    @FXML
-    private StackPane c4;
-    @FXML
-    private StackPane a4;
-    @FXML
-    private StackPane e4;
-    @FXML
-    private StackPane f5;
-    @FXML
-    private StackPane g6;
-    @FXML
-    private StackPane f7;
-    @FXML
-    private StackPane g8;
-    @FXML
-    private StackPane h7;
-    @FXML
-    private StackPane h5;
-    @FXML
-    private StackPane g4;
-    @FXML
-    private StackPane b3;
-    @FXML
-    private StackPane d3;
-    @FXML
-    private StackPane a2;
-    @FXML
-    private StackPane c2;
-    @FXML
-    private StackPane e2;
-    @FXML
-    private StackPane f3;
-    @FXML
-    private StackPane h3;
-    @FXML
-    private StackPane g2;
-    @FXML
-    private StackPane b1;
-    @FXML
-    private StackPane d1;
-    @FXML
-    private StackPane f1;
-    @FXML
-    private StackPane h1;
-    @FXML
-    private StackPane b8;
-    @FXML
-    private StackPane c7;
-    @FXML
-    private StackPane d8;
-    @FXML
-    private StackPane b6;
-    @FXML
-    private StackPane d6;
-    @FXML
-    private StackPane e7;
-    @FXML
-    private StackPane f8;
-    @FXML
-    private StackPane h8;
-    @FXML
-    private StackPane g7;
-    @FXML
-    private StackPane f6;
-    @FXML
-    private StackPane c5;
-    @FXML
-    private StackPane a5;
-    @FXML
-    private StackPane b4;
-    @FXML
-    private StackPane d4;
-    @FXML
-    private StackPane e5;
-    @FXML
-    private StackPane f4;
-    @FXML
-    private StackPane g5;
-    @FXML
-    private StackPane h6;
-    @FXML
-    private StackPane a3;
-    @FXML
-    private StackPane c3;
-    @FXML
-    private StackPane b2;
-    @FXML
-    private StackPane a7;
-    @FXML
-    private StackPane d2;
-    @FXML
-    private StackPane e3;
-    @FXML
-    private StackPane g3;
-    @FXML
-    private StackPane h4;
-    @FXML
-    private StackPane f2;
-    @FXML
-    private StackPane h2;
-    @FXML
-    private StackPane c1;
-    @FXML
-    private StackPane e1;
-    @FXML
-    private StackPane g1;
+    private GridPane tablero;
+    private Cuadro[][] matriz;
+    private ImageView imv;
+    private int[] xy = {-1,-1};
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.matriz = new Cuadro[8][8];
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            count++;
+            for (int j = 0; j < 8; j++) {
+                Cuadro cuadro = new Cuadro(i,j);
+                Rectangle r = new Rectangle(90,70);
+                if (count % 2 == 0)
+                    r.setFill(Color.rgb(70,83,115));
+                else
+                    r.setFill(Color.rgb(223,230,245));
+                if (i == 1){
+                    ImageView img = new ImageView();
+                    img.setImage(new Image("img/blackPawn.png"));
+                    cuadro.setOcupado(true);
+                    cuadro.getChildren().addAll(r,img);
+                }
+                else
+                    cuadro.getChildren().add(r);
+                tablero.add(cuadro, j, i);
+                matriz[i][j] = cuadro; 
+                cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
+                    if (cuadro.isOcupado()){
+                        this.imv = (ImageView)cuadro.getChildren().get(1);
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                        xy[0] = cuadro.getXpos();
+                        xy[1] = cuadro.getYpos();
+                        a.show();
+                    }
+                    else if(!(cuadro.isOcupado()) && xy[0] != -1){
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, ""+xy[0]+xy[1]+" "+ cuadro.getXpos() + cuadro.getYpos());
+                        matriz[xy[0]][xy[1]].getChildren().remove(1);
+                        matriz[xy[0]][xy[1]].setOcupado(false);
+                        cuadro.getChildren().add(imv);
+                        cuadro.setOcupado(true);
+                        imv = null;
+                        xy[0] = -1;
+                        xy[1] = -1;
+                    }
+                });
+                count++;
+            }
+        }
     }    
-
-    @FXML
-    private void prueba(MouseEvent event) {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION,"prueba");
-        a.show();
-    }
-
-    
 }
