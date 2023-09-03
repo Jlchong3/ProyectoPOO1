@@ -8,6 +8,8 @@ import ec.edu.espol.clases_ajedres.Pieza;
 import ec.edu.espol.clases_ajedres.TipoColor;
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -17,9 +19,13 @@ public class Caballo extends Pieza {
 
     public Caballo(TipoColor color, int xpos, int ypos) {
         super(color, xpos, ypos);
+        if(color.equals(TipoColor.Blanco))
+            this.setImage(new Image("img/whiteKnight"));   
+        else 
+            this.setImage(new Image("img/blackKnight"));
     }
 
-    public ArrayList<int[]> movimientos_posibles() {
+    public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
         int[][] movimientos = {
             {super.xpos + 2, super.ypos + 1}, {super.xpos + 2, super.ypos - 1},
             {super.xpos - 2, super.ypos + 1}, {super.xpos - 2, super.ypos - 1},
@@ -27,30 +33,44 @@ public class Caballo extends Pieza {
             {super.xpos - 1, super.ypos + 2}, {super.xpos - 1, super.ypos - 2}
         };
 
-        ArrayList<int[]> movimiento_posibles = new ArrayList<int[]>();
+        ArrayList<int[]> movimientosPosibles = new ArrayList<int[]>();
 
         for (int[] movimiento : movimientos) {
             if (movimiento[0] >= 0 && movimiento[0] < 8 && movimiento[1] >= 0 && movimiento[1] < 8) {
-                movimiento_posibles.add(movimiento);
+                if((tablero[movimiento[0]][movimiento[1]]).isOcupado()){
+                    if(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color))
+                        break;
+                    else if (!(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color)))
+                    {
+                        movimientosPosibles.add(movimiento);
+//                        comerficha();
+                        break;
+                    }}
+                movimientosPosibles.add(movimiento);                  
             }
         }
-        return movimiento_posibles; // falta validar si esta ocupado
+        return movimientosPosibles; 
     }
 
     @Override
-    public int[] eliminarPieza(Pieza p) {
-        int[] listPos = {-1, -1};
+        public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
+     
         int distx = Math.abs(this.xpos - p.xpos);
         int disty = Math.abs(this.ypos - p.ypos);
 
        
         if ((distx == 1 && disty == 2) || (distx == 2 && disty == 1)) {
             if (!this.color.equals(p.color)) {
-                listPos = new int[]{p.xpos, p.ypos};
-            }
+                tablero[p.xpos][p.ypos].getChildren().remove(1);
+                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
+                tablero[this.xpos][this.ypos].getChildren().remove(1);
+            }else{
+            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
+            a.show();
+        }
         }
 
-        return listPos;
+    
     }
 
 }

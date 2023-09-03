@@ -6,6 +6,7 @@ package ec.edu.espol.clases_ajedres;
 
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -18,38 +19,46 @@ public class Rey extends Pieza {
     }
 
     @Override
-    public ArrayList<int[]> movimientos_posibles() {
+    public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
 
         int[][] movimientos = {
             {super.xpos + 1, super.ypos}, {super.xpos - 1, super.ypos}, {super.xpos, super.ypos + 1}, {super.xpos, super.ypos - 1},
             {super.xpos + 1, super.ypos + 1}, {super.xpos - 1, super.ypos - 1}, {super.xpos + 1, super.ypos - 1}, {super.xpos - 1, super.ypos + 1}};
-        ArrayList<int[]> movimiento_posibles = new ArrayList<int[]>();
+        ArrayList<int[]> movimientoPosibles = new ArrayList<int[]>();
 
         for (int[] movimiento : movimientos) {
             if (movimiento[0] >= 0 && movimiento[0] <= 7 && movimiento[1] >= 0 && movimiento[1] <= 7) {
-                movimiento_posibles.add(movimiento);
+                if((tablero[movimiento[0]][movimiento[1]]).isOcupado()){
+                    if(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color))
+                        break;
+                    else if (!(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color)))
+                    {
+                        movimientoPosibles.add(movimiento);
+//                        comerficha();
+                        break;
+                    }}
+                movimientoPosibles.add(movimiento);                 
             }
         }
-        return movimiento_posibles;
+        return movimientoPosibles;
 
     }
 
     @Override
-    public int[] eliminarPieza(Pieza p) {
-        int[] listPos = {-1, -1};
+    public void eliminarPieza(Pieza p,Cuadro[][] tablero){
         int distx = this.xpos - p.xpos;
         int disty = this.ypos - p.ypos;
 
         if ((distx == 1 && disty == 1 && distx == 0 && disty == 0) && (!this.color.equals(p.color))) {
-            listPos = new int[]{p.xpos, p.ypos};
+         tablero[p.xpos][p.ypos].getChildren().remove(1);
+                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
+                tablero[this.xpos][this.ypos].getChildren().remove(1);
+        } else{
+            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
+            a.show();
         }
 
-        return listPos;
-    }
 
-    @Override
-    public Node getStyleableNode() {
-        return super.getStyleableNode(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
 }
