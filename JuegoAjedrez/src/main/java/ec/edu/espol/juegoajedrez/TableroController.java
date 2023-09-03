@@ -55,25 +55,10 @@ public class TableroController implements Initializable {
                     r.setFill(Color.rgb(70,83,115));
                 else
                     r.setFill(Color.rgb(223,230,245));
-                if (i == 1 ){
-//                    ImageView img = new ImageView();
-//                    img.setImage(new Image("img/blackPawn.png"));
-                    Peon p = new Peon(TipoColor.Negro,i,j);
-                    cuadro.setOcupado(true);
-                    cuadro.getChildren().addAll(r,p);
-                }else if( i==6){
-                    ImageView img = new ImageView();
-                    img.setImage(new Image("img/whitePawn.png"));
-                    cuadro.setOcupado(true);
-                    cuadro.getChildren().addAll(r,img);
-                }
-                else
-                    cuadro.getChildren().add(r);
-                tablero.add(cuadro, j, i);
-                matriz[i][j] = cuadro; 
+                llenarTablero(cuadro,r);
                 cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
                     if (cuadro.isOcupado()){
-                        this.imv = (ImageView)cuadro.getChildren().get(1);
+                        this.imv = (Pieza)cuadro.getChildren().get(1);
                         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                         xy[0] = cuadro.getXpos();
                         xy[1] = cuadro.getYpos();
@@ -135,6 +120,65 @@ public class TableroController implements Initializable {
                 }
             }
             
+        }
+    }
+    
+    public void llenarTablero(Cuadro cuadro,Rectangle r){
+        int x = cuadro.getXpos();
+        int y = cuadro.getYpos();
+        Pieza p = null;
+        if(x == 1){
+            p = new Peon(TipoColor.Negro,x,y);
+        }
+        else if(x == 6){
+            p = new Peon(TipoColor.Blanco,x,y);
+        }
+        
+        else if (x == 7 && (y == 0 || y == 7)){
+            p = new Torre(TipoColor.Blanco,x,y);
+        }
+        
+        else if (x == 0 && (y == 0 || y == 7)){
+            p = new Torre(TipoColor.Negro,x,y);
+        }
+        
+        else if (x == 7 && (y == 1 || y == 6)){
+            p = new Caballo(TipoColor.Blanco,x,y);
+        }
+        
+        else if (x == 0 && (y == 1 || y == 6)){
+            p = new Caballo(TipoColor.Negro,x,y);
+        }
+        
+        else if (x == 7 && (y == 2 || y == 5)){
+            p = new Alfil(TipoColor.Blanco,x,y);
+        }
+        
+        else if (x == 0 && (y == 2 || y == 5)){
+            p = new Alfil(TipoColor.Negro,x,y);
+        }
+        else if (x == 7 && y == 3){
+            p = new Dama(TipoColor.Blanco,x,y);
+        }
+        else if (x == 0 && y == 3){
+            p = new Dama(TipoColor.Negro,x,y);
+        }
+        else if (x == 7 && y == 4){
+            p = new Rey(TipoColor.Blanco,x,y);
+        }
+        else if (x == 0 && y == 4){
+            p = new Rey(TipoColor.Negro,x,y);
+        }
+        if (p == null){
+            cuadro.getChildren().addAll(r);
+            tablero.add(cuadro, y, x);
+            matriz[x][y] = cuadro;
+        }
+        else{
+            cuadro.getChildren().addAll(r,p);
+            cuadro.setOcupado(true);
+            tablero.add(cuadro, y, x);
+            matriz[x][y] = cuadro;
         }
     }
 }
