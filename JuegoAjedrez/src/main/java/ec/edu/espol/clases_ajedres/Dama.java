@@ -27,8 +27,8 @@ public class Dama extends Pieza {
         ArrayList<int[]> movimientosPosibles = new ArrayList<int[]>();
 
         // Movimientos en línea recta
-        // Movimientos hacia arriba
-        for (int i = super.ypos + 1; i <= 7; i++) {
+        // Movimientos hacia derecha
+        for (int i = super.ypos + 1; i <=7; i++) {
 //            movimientosPosibles.add(new int[]{super.xpos, i});
             int[]mov = {super.xpos, i};
             if((tablero[mov[0]][mov[1]]).isOcupado()){
@@ -42,7 +42,7 @@ public class Dama extends Pieza {
                 }}
             movimientosPosibles.add(mov);            
         }
-        // Movimientos hacia abajo
+        // Movimientos hacia izquierda
         for (int i = super.ypos - 1; i >= 0; i--) {
 //            movimientosPosibles.add(new int[]{super.xpos, i});
             int[]mov = {super.xpos, i};
@@ -58,7 +58,7 @@ public class Dama extends Pieza {
             movimientosPosibles.add(mov);             
         }
 
-        // Movimientos hacia la derecha
+        // Movimientos hacia la abajo
         for (int i = super.xpos + 1; i <= 7; i++) {
 //            movimientosPosibles.add(new int[]{i, super.ypos});
             int[]mov = {i, super.ypos};
@@ -74,7 +74,7 @@ public class Dama extends Pieza {
             movimientosPosibles.add(mov);              
         }
 
-        // Movimientos hacia la izquierda
+        // Movimientos hacia la arriba
         for (int i = super.xpos - 1; i >= 0; i--) {
 //            movimientosPosibles.add(new int[]{i, super.ypos});
             int[]mov = {i, super.ypos};
@@ -91,13 +91,13 @@ public class Dama extends Pieza {
         }
 
         // Movimientos en diagonal
-        // Movimientos en diagonal hacia arriba-derecha
+        // Movimientos en diagonal hacia abajo-derecha
         for (int i = 1; super.xpos + i <= 7 && super.ypos + i <= 7; i++) {
 //            movimientosPosibles.add(new int[]{super.xpos + i, super.ypos + i});
             int[]mov = {super.xpos + i, super.ypos + i};
             if((tablero[mov[0]][mov[1]]).isOcupado()){
-                if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color))
-                    break;
+                if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)){
+                    break;}
                 else if (!(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)))
                 {
                     movimientosPosibles.add(mov);
@@ -107,7 +107,7 @@ public class Dama extends Pieza {
             movimientosPosibles.add(mov);              
         }
 
-        // Movimientos en diagonal hacia arriba-izquierda
+        // Movimientos en diagonal hacia arriba-derecha
         for (int i = 1; super.xpos - i >= 0 && super.ypos + i <= 7; i++) {
 //            movimientosPosibles.add(new int[]{super.xpos - i, super.ypos + i});
             int[]mov = {super.xpos - i, super.ypos + i};
@@ -139,7 +139,7 @@ public class Dama extends Pieza {
             movimientosPosibles.add(mov);              
         }
 
-        // Movimientos en diagonal hacia abajo-izquierda
+        // Movimientos en diagonal hacia arriba-izquierda
         for (int i = 1; super.xpos - i >= 0 && super.ypos - i >= 0; i++) {
 //            movimientosPosibles.add(new int[]{super.xpos - i, super.ypos - i});
             int[]mov = {super.xpos - i, super.ypos - i};
@@ -164,9 +164,11 @@ public class Dama extends Pieza {
         int disty = Math.abs(this.ypos - p.ypos);
 
         if ((distx == 0 || disty == 0 || distx == disty) && (!this.color.equals(p.color))) {
-           tablero[p.xpos][p.ypos].getChildren().remove(1);
+            tablero[p.xpos][p.ypos].getChildren().remove(1);
                 tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
                 tablero[this.xpos][this.ypos].getChildren().remove(1);
+                this.xpos = p.xpos;
+                this.ypos = p.ypos;
         }else{
             Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
             a.show();

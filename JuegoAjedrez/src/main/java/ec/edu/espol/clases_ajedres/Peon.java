@@ -85,6 +85,8 @@ public class Peon extends Pieza {
                 tablero[p.xpos][p.ypos].getChildren().remove(1);
                 tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
                 tablero[this.xpos][this.ypos].getChildren().remove(1);
+                this.xpos = p.xpos;
+                this.ypos = p.ypos;
         }    else{
             Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
             a.show();

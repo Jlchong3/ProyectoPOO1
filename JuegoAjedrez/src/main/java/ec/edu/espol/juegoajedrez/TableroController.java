@@ -34,13 +34,12 @@ public class TableroController implements Initializable {
     private GridPane tablero;
     private Cuadro[][] matriz;
     private Pieza pieza;
-    private int[] xy = {-1,-1};
-    private ArrayList<int[]> movimientosValidos;
+    private ArrayList<int[]> movimientosValidos = new ArrayList<>();
     @FXML
     private Label relojNegro;
     @FXML
     private Label relojBlanco;
-
+    private boolean turnoBlanco = true;
     /**
      * Initializes the controller class.
      */
@@ -59,40 +58,38 @@ public class TableroController implements Initializable {
                     r.setFill(Color.rgb(223,230,245));
                 llenarTablero(cuadro,r);
                 cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
-                    if (cuadro.isOcupado()){
-                        this.movimientosValidos = null;
-                        this.pieza = (Pieza)cuadro.getChildren().get(1);
+                    int[] cuadropos = {cuadro.getXpos(),cuadro.getYpos()};
+                    Pieza actual = (Pieza)cuadro.getChildren().get(1);
+                    if ((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))){
+                        this.pieza = actual;
                         this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                        for (int[] mov : this.movimientosValidos){
-                            System.out.println(mov[0]+","+mov[1]);
-                        }
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                        xy[0] = cuadro.getXpos();
-                        xy[1] = cuadro.getYpos();
-                        //a.show();
                     }
-                    else if(!(cuadro.isOcupado()) && xy[0] != -1){
-                        matriz[xy[0]][xy[1]].getChildren().remove(1);
-                        matriz[xy[0]][xy[1]].setOcupado(false);
-                        cuadro.getChildren().add(pieza);
-                        pieza.setXpos(cuadro.getXpos());
-                        pieza.setYpos(cuadro.getYpos());
-                        cuadro.setOcupado(true);
-                        pieza = null;
-                        xy[0] = -1;
-                        xy[1] = -1;
-                        this.movimientosValidos = null;
+                    else if(cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && movimientosValidos.contains(cuadropos)){
+                        this.pieza.eliminarPieza(actual,matriz);
+                        this.pieza = null;
+                        this.movimientosValidos.clear();
+                    }
+
+                    else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())){
+                        this.pieza = actual;
+                        this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                    }
+
+                    else if (!cuadro.isOcupado() && movimientosValidos.contains(cuadropos)){
+                        this.pieza.mover(cuadropos,matriz);
+                        this.pieza = null;
+                        this.movimientosValidos.clear();
                     }
                 });
-                count++;
             }
+                count++;
         }
         Reloj h1 = new Reloj(relojNegro);
         Reloj h2 = new Reloj(relojBlanco);
         h1.start();
         h2.start();
     }
-    public class Reloj extends Thread{
+	public class Reloj extends Thread{
         private int minutos;
         private int segundos;
         private Label reloj;
@@ -102,7 +99,6 @@ public class TableroController implements Initializable {
             this.minutos = 10;
             this.segundos = 0;
         }
-        
         
         @Override
         public void run(){
@@ -131,7 +127,7 @@ public class TableroController implements Initializable {
             
         }
     }
-    
+
     public void llenarTablero(Cuadro cuadro,Rectangle r){
         int x = cuadro.getXpos();
         int y = cuadro.getYpos();
@@ -189,5 +185,5 @@ public class TableroController implements Initializable {
             tablero.add(cuadro, y, x);
             matriz[x][y] = cuadro;
         }
-    }
+    } 
 }

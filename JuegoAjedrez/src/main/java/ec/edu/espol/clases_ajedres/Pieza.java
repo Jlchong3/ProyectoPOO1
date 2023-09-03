@@ -47,13 +47,18 @@ public class Pieza extends ImageView{
     }
      
 
-   
-
     public  ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero){
         return null;
     }
     public  void eliminarPieza(Pieza p,Cuadro[][] tablero){
       
+    }
+
+    public void mover(int[] mov,Cuadro[][] tablero){
+        tablero[this.xpos][this.ypos].getChildren().remove(1);
+        tablero[mov[0]][mov[1]].getChildren().add(this);
+        this.xpos = mov[0];
+        this.ypos = mov[1];
     }
 
 
