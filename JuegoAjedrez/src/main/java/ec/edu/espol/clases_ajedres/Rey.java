@@ -7,6 +7,7 @@ package ec.edu.espol.clases_ajedres;
 import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -15,7 +16,11 @@ import javafx.scene.control.Alert;
 public class Rey extends Pieza {
 
     public Rey(TipoColor color, int xpos, int ypos) {
-        super(color, xpos, ypos);
+       super(color, xpos, ypos);
+        if(color.equals(TipoColor.Blanco))
+            this.setImage(new Image("img/whiteKing.png"));   
+        else 
+            this.setImage(new Image("img/blackKing.png"));
     }
 
     @Override
