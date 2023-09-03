@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 public class Rey extends Pieza {
 
     public Rey(TipoColor color, int xpos, int ypos) {
-       super(color, xpos, ypos);
+        super(color, xpos, ypos);
         if(color.equals(TipoColor.Blanco))
             this.setImage(new Image("img/whiteKing.png"));   
         else 
