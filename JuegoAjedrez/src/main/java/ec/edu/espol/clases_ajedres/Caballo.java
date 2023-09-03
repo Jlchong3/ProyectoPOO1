@@ -39,12 +39,12 @@ public class Caballo extends Pieza {
             if (movimiento[0] >= 0 && movimiento[0] < 8 && movimiento[1] >= 0 && movimiento[1] < 8) {
                 if((tablero[movimiento[0]][movimiento[1]]).isOcupado()){
                     if(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color))
-                        break;
+                        continue;
                     else if (!(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color)))
                     {
                         movimientosPosibles.add(movimiento);
 //                        comerficha();
-                        break;
+                        ;
                     }}
                 movimientosPosibles.add(movimiento);                  
             }

@@ -6,6 +6,7 @@ package ec.edu.espol.juegoajedrez;
 
 import ec.edu.espol.clases_ajedres.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -32,8 +33,9 @@ public class TableroController implements Initializable {
     @FXML
     private GridPane tablero;
     private Cuadro[][] matriz;
-    private ImageView imv;
+    private Pieza pieza;
     private int[] xy = {-1,-1};
+    private ArrayList<int[]> movimientosValidos;
     @FXML
     private Label relojNegro;
     @FXML
@@ -58,21 +60,28 @@ public class TableroController implements Initializable {
                 llenarTablero(cuadro,r);
                 cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
                     if (cuadro.isOcupado()){
-                        this.imv = (Pieza)cuadro.getChildren().get(1);
+                        this.movimientosValidos = null;
+                        this.pieza = (Pieza)cuadro.getChildren().get(1);
+                        this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                        for (int[] mov : this.movimientosValidos){
+                            System.out.println(mov[0]+","+mov[1]);
+                        }
                         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                         xy[0] = cuadro.getXpos();
                         xy[1] = cuadro.getYpos();
                         a.show();
                     }
                     else if(!(cuadro.isOcupado()) && xy[0] != -1){
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, ""+xy[0]+xy[1]+" "+ cuadro.getXpos() + cuadro.getYpos());
                         matriz[xy[0]][xy[1]].getChildren().remove(1);
                         matriz[xy[0]][xy[1]].setOcupado(false);
-                        cuadro.getChildren().add(imv);
+                        cuadro.getChildren().add(pieza);
+                        pieza.setXpos(cuadro.getXpos());
+                        pieza.setYpos(cuadro.getYpos());
                         cuadro.setOcupado(true);
-                        imv = null;
+                        pieza = null;
                         xy[0] = -1;
                         xy[1] = -1;
+                        this.movimientosValidos = null;
                     }
                 });
                 count++;
