@@ -69,7 +69,7 @@ public class TableroController implements Initializable {
                         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                         xy[0] = cuadro.getXpos();
                         xy[1] = cuadro.getYpos();
-                        a.show();
+                        //a.show();
                     }
                     else if(!(cuadro.isOcupado()) && xy[0] != -1){
                         matriz[xy[0]][xy[1]].getChildren().remove(1);

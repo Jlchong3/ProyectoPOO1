@@ -35,12 +35,12 @@ public class Rey extends Pieza {
             if (movimiento[0] >= 0 && movimiento[0] <= 7 && movimiento[1] >= 0 && movimiento[1] <= 7) {
                 if((tablero[movimiento[0]][movimiento[1]]).isOcupado()){
                     if(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color))
-                        break;
+                        continue;
                     else if (!(((Pieza)(tablero[movimiento[0]][movimiento[1]]).getChildren().get(1)).getColor().equals(this.color)))
                     {
                         movimientoPosibles.add(movimiento);
 //                        comerficha();
-                        break;
+                        continue;
                     }}
                 movimientoPosibles.add(movimiento);                 
             }

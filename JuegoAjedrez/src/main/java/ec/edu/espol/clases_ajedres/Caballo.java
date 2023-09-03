@@ -44,7 +44,7 @@ public class Caballo extends Pieza {
                     {
                         movimientosPosibles.add(movimiento);
 //                        comerficha();
-                        ;
+                        continue;
                     }}
                 movimientosPosibles.add(movimiento);                  
             }

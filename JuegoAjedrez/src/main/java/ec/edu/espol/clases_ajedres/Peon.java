@@ -26,9 +26,10 @@ public class Peon extends Pieza {
     }
 
     
+    @Override
     public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
         ArrayList<int[]> movimientos_posibles = new ArrayList<int[]>();
-    if (color == TipoColor.Negro) {
+    if (color.equals(TipoColor.Negro) ) {
         // Mover hacia adelante
         if (this.xpos < 7 && !(tablero[this.xpos+1][this.ypos].isOcupado())){
             movimientos_posibles.add(new int[]{this.xpos+1, this.ypos});
@@ -41,12 +42,15 @@ public class Peon extends Pieza {
         }
         
         // Captura diagonal
-        if (this.ypos > 0 && this.xpos < 7 && (tablero[this.xpos+1][this.ypos-1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos+1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
+        if (this.ypos > 0 && this.xpos < 7 &&(tablero[this.xpos+1][this.ypos-1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
             movimientos_posibles.add(new int[]{this.xpos+1, this.ypos-1});
         }
-        if (this.ypos < 7 && this.xpos < 7 && (tablero[this.xpos+1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
+        if ( this.xpos < 7 && this.ypos<7 &&(tablero[this.xpos+1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos+1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
             movimientos_posibles.add(new int[]{this.xpos+1, this.ypos+1});
         }
+//        if (this.ypos < 7 && this.xpos < 7 && (tablero[this.xpos+1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
+//            movimientos_posibles.add(new int[]{this.xpos+1, this.ypos+1});
+//        }
     }
     // Para un peón blanco
     else {
@@ -65,7 +69,7 @@ public class Peon extends Pieza {
         if (this.ypos > 0 && this.xpos > 0 && (tablero[this.xpos-1][this.ypos-1].isOcupado()) && ((Pieza)(tablero[this.xpos-1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Negro)) {
             movimientos_posibles.add(new int[]{this.xpos-1, this.ypos-1});
         }
-        if (this.ypos < 7 && this.xpos > 0 && (tablero[this.xpos-1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Negro))  {
+        if (this.ypos < 7 && this.xpos > 0 && (tablero[this.xpos-1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos-1][this.ypos+1]).getChildren().get(1)).getColor().equals(TipoColor.Negro))  {
             movimientos_posibles.add(new int[]{this.xpos-1, this.ypos+1});
         }
   
