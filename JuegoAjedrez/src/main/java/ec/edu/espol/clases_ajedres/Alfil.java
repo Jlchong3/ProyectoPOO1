@@ -45,5 +45,20 @@ public class Alfil extends Pieza{
         
         return movimientosValidos;
     }
+    @Override
+    public int[] eliminarPieza(Pieza p) {
+        int[] listPos = {-1, -1};
+        int distx = Math.abs(this.xpos - p.xpos);
+        int disty = Math.abs(this.ypos - p.ypos);
+
+        if (distx == disty && !this.color.equals(p.color)) {
+            listPos = new int[]{p.xpos, p.ypos};
+        }
+
+        return listPos;
+        
+        
+        
+    }
     
 }

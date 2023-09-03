@@ -5,6 +5,8 @@
 package ec.edu.espol.juegoajedrez;
 
 import ec.edu.espol.clases_ajedres.Cuadro;
+import ec.edu.espol.clases_ajedres.Pieza;
+import ec.edu.espol.clases_ajedres.TipoColor;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -55,9 +57,14 @@ public class TableroController implements Initializable {
                     r.setFill(Color.rgb(70,83,115));
                 else
                     r.setFill(Color.rgb(223,230,245));
-                if (i == 1){
+                if (i == 1 ){
                     ImageView img = new ImageView();
                     img.setImage(new Image("img/blackPawn.png"));
+                    cuadro.setOcupado(true);
+                    cuadro.getChildren().addAll(r,img);
+                }else if( i==6){
+                    ImageView img = new ImageView();
+                    img.setImage(new Image("img/whitePawn.png"));
                     cuadro.setOcupado(true);
                     cuadro.getChildren().addAll(r,img);
                 }

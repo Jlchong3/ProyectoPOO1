@@ -11,11 +11,12 @@ import javafx.scene.image.ImageView;
  *
  * @author josel
  */
-public abstract class Pieza extends ImageView{
+public abstract  class Pieza extends ImageView{
     
     protected TipoColor color;
     protected int xpos;
     protected int ypos;
+    
     
     public Pieza(TipoColor color,int xpos,int ypos){
         this.color = color;
@@ -44,7 +45,9 @@ public abstract class Pieza extends ImageView{
     }
 
     public abstract ArrayList<int[]> movimientos_posibles();
-}   
+    public abstract int[] eliminarPieza(Pieza p);
+
+}
     
     
     

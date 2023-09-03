@@ -5,13 +5,16 @@
 package ec.edu.espol.clases_ajedres;
 
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 
 /**
  *
  * @author angelozurita
  */
 public class Peon extends Pieza {
+
     private boolean primerMovimiento;
+
     public Peon(TipoColor color, int xpos, int ypos) {
         super(color, xpos, ypos);
     }
@@ -19,28 +22,38 @@ public class Peon extends Pieza {
     @Override
     public ArrayList<int[]> movimientos_posibles() {
         ArrayList<int[]> movimientos_posibles = new ArrayList<int[]>();
-    
+
         if (super.ypos < 7) {
-            movimientos_posibles.add(new int[] {super.xpos, super.ypos + 1});
+            movimientos_posibles.add(new int[]{super.xpos, super.ypos + 1});
         }
-        
+
         // Movimiento inicial
         if (primerMovimiento && super.ypos < 6) {
-            movimientos_posibles.add(new int[] {super.xpos, super.ypos + 2});
+            movimientos_posibles.add(new int[]{super.xpos, super.ypos + 2});
         }
-        
+
         // Captura
         if (super.ypos < 7) {
             if (super.xpos > 0) {
-                movimientos_posibles.add(new int[] {super.xpos - 1, super.ypos + 1});
+                movimientos_posibles.add(new int[]{super.xpos - 1, super.ypos + 1});
             }
             if (super.xpos < 7) {
-                movimientos_posibles.add(new int[] {super.xpos + 1, super.ypos + 1});
+                movimientos_posibles.add(new int[]{super.xpos + 1, super.ypos + 1});
             }
         }
-    
+
         return movimientos_posibles;
     }
-    
-    
+
+    @Override
+    public int[] eliminarPieza(Pieza p) {
+        int[] listPos = {-1,-1};
+            int distx = this.xpos - p.xpos;
+            int disty = this.ypos - p.ypos;
+            if ((distx == 1 || distx == -1) && (disty == 1 || disty == -1)&&(!this.color.equals(p.color))) {
+                listPos = new int[]{p.xpos, p.ypos};
+            }
+        return listPos;
+    }
+
 }
