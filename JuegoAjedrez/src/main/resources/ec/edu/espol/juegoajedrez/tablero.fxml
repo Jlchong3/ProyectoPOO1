@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,6 +31,14 @@
                   <Font name="Arial Black" size="18.0" />
                </font>
             </Label>
+            <Label fx:id="relojNegro" prefHeight="50.0" prefWidth="87.0" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
    </top>
@@ -52,6 +61,14 @@
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
+            </Label>
+            <Label fx:id="relojBlanco" prefHeight="50.0" prefWidth="87.0" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
             </Label>
          </children>
       </GridPane>

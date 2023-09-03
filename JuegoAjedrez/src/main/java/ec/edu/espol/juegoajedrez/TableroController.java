@@ -7,11 +7,13 @@ package ec.edu.espol.juegoajedrez;
 import ec.edu.espol.clases_ajedres.Cuadro;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +34,10 @@ public class TableroController implements Initializable {
     private Cuadro[][] matriz;
     private ImageView imv;
     private int[] xy = {-1,-1};
+    @FXML
+    private Label relojNegro;
+    @FXML
+    private Label relojBlanco;
 
     /**
      * Initializes the controller class.
@@ -81,5 +87,48 @@ public class TableroController implements Initializable {
                 count++;
             }
         }
-    }    
+        Reloj h1 = new Reloj(relojNegro);
+        Reloj h2 = new Reloj(relojBlanco);
+        h1.start();
+        h2.start();
+    }
+    public class Reloj extends Thread{
+        private int minutos;
+        private int segundos;
+        private Label reloj;
+        
+        public Reloj(Label reloj){
+            this.reloj = reloj;
+            this.minutos = 10;
+            this.segundos = 0;
+        }
+        
+        
+        @Override
+        public void run(){
+            while (minutos > 0 || segundos > 0){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                if (segundos == 0){
+                    minutos--;
+                    segundos = 60;
+                }
+                segundos--;
+                if (segundos < 10){
+                    Platform.runLater(()->{
+                        reloj.setText(minutos+":0"+segundos);
+                    });
+                }   
+                else{
+                    Platform.runLater(()->{
+                        reloj.setText(minutos+":"+segundos);
+                    });
+                }
+            }
+            
+        }
+    }
 }

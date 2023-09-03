@@ -5,6 +5,4 @@ module ec.edu.espol.juegoajedrez {
 
     opens ec.edu.espol.juegoajedrez to javafx.fxml;
     exports ec.edu.espol.juegoajedrez;
-    opens ec.edu.espol.clases_ajedres.Piezas to javafx.fxml;
-    exports ec.edu.espol.clases_ajedres.Piezas;
 }
