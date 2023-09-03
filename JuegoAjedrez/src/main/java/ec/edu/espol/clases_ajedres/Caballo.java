@@ -20,9 +20,9 @@ public class Caballo extends Pieza {
     public Caballo(TipoColor color, int xpos, int ypos) {
         super(color, xpos, ypos);
         if(color.equals(TipoColor.Blanco))
-            this.setImage(new Image("img/whiteKnight"));   
+            this.setImage(new Image("img/whiteKnight.png"));   
         else 
-            this.setImage(new Image("img/blackKnight"));
+            this.setImage(new Image("img/blackKnight.png"));
     }
 
     public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
