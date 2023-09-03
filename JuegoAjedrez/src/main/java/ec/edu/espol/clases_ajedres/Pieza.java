@@ -4,11 +4,15 @@
  */
 package ec.edu.espol.clases_ajedres;
 
+import java.util.ArrayList;
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author josel
  */
-public class Pieza {
+public abstract class Pieza extends ImageView{
+    
     protected TipoColor color;
     protected int xpos;
     protected int ypos;
@@ -38,6 +42,8 @@ public class Pieza {
     public int getYpos() {
         return ypos;
     }
+
+    public abstract ArrayList<int[]> movimientos_posibles();
 }   
     
     
