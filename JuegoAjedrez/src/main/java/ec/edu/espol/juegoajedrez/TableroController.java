@@ -81,8 +81,8 @@ public class TableroController implements Initializable {
                         this.movimientosValidos.clear();
                     }
                 });
-            }
                 count++;
+            }
         }
         Reloj h1 = new Reloj(relojNegro);
         Reloj h2 = new Reloj(relojBlanco);
