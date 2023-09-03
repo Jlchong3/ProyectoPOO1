@@ -49,11 +49,11 @@ public class Pieza extends ImageView{
 
    
 
-    public  ArrayList<int[]> movimientos_posibles(){
+    public  ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero){
         return null;
     }
-    public  int[] eliminarPieza(Pieza p){
-        return null;
+    public  void eliminarPieza(Pieza p,Cuadro[][] tablero){
+      
     }
 
 

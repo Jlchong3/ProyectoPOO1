@@ -24,41 +24,63 @@ public class Peon extends Pieza {
             this.setImage(new Image("img/blackPawn.png"));
     }
 
-    @Override
-    public ArrayList<int[]> movimientos_posibles() {
+    public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
         ArrayList<int[]> movimientos_posibles = new ArrayList<int[]>();
-
-        if (super.ypos < 7) {
-            movimientos_posibles.add(new int[]{super.xpos, super.ypos + 1});
-        }
-
-        // Movimiento inicial
-        if (primerMovimiento && super.ypos < 6) {
-            movimientos_posibles.add(new int[]{super.xpos, super.ypos + 2});
-        }
-
-        // Captura
-        if (super.ypos < 7) {
-            if (super.xpos > 0) {
-                movimientos_posibles.add(new int[]{super.xpos - 1, super.ypos + 1});
-            }
-            if (super.xpos < 7) {
-                movimientos_posibles.add(new int[]{super.xpos + 1, super.ypos + 1});
+    if (color == TipoColor.Blanco) {
+        // Mover hacia adelante
+        if (this.ypos < 7 && !(tablero[this.xpos][this.ypos+1].isOcupado())){
+            movimientos_posibles.add(new int[]{this.xpos, this.ypos+1});
+            
+            // Mover dos espacios desde la posición inicial
+            if (this.ypos == 1 && !(tablero[this.xpos][this.ypos+2].isOcupado())) {
+                movimientos_posibles.add(new int[]{this.xpos, this.ypos+2});
             }
         }
-
-        return movimientos_posibles;
+        
+        // Captura diagonal
+        if (this.xpos > 0 && this.ypos < 7 && (tablero[this.xpos-1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos-1][this.ypos+1]).getChildren().get(1)).getColor().equals(TipoColor.Negro)) {
+            movimientos_posibles.add(new int[]{this.xpos-1, this.ypos+1});
+        }
+        if (this.xpos < 7 && this.ypos < 7 && (tablero[this.xpos+1][this.ypos+1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos+1]).getChildren().get(1)).getColor().equals(TipoColor.Negro)) {
+            movimientos_posibles.add(new int[]{this.xpos+1, this.ypos+1});
+        }
     }
+    // Para un peón negro
+    else {
+        // Mover hacia adelante
+        if (this.ypos > 0 && !(tablero[this.xpos][this.ypos-1].isOcupado())) {
+            movimientos_posibles.add(new int[]{this.xpos, this.ypos-1});
+            
+            // Mover dos espacios desde la posición inicial
+            if (this.ypos == 6 && !(tablero[this.xpos][this.ypos-2].isOcupado())) {
+                movimientos_posibles.add(new int[]{this.xpos, this.ypos-2});
+            }
+        }
+        
+        // Captura diagonal
+        if (this.xpos > 0 && this.ypos > 0 && (tablero[this.xpos-1][this.ypos-1].isOcupado()) && ((Pieza)(tablero[this.xpos-1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco)) {
+            movimientos_posibles.add(new int[]{this.xpos-1, this.ypos-1});
+        }
+        if (this.xpos < 7 && this.ypos > 0 && (tablero[this.xpos+1][this.ypos-1].isOcupado()) && ((Pieza)(tablero[this.xpos+1][this.ypos-1]).getChildren().get(1)).getColor().equals(TipoColor.Blanco))  {
+            movimientos_posibles.add(new int[]{this.xpos+1, this.ypos-1});
+        }
+  
+    }
+        return movimientos_posibles;
+ }
 
     @Override
-    public int[] eliminarPieza(Pieza p) {
-        int[] listPos = {-1,-1};
+    public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
             int distx = this.xpos - p.xpos;
             int disty = this.ypos - p.ypos;
             if ((distx == 1 || distx == -1) && (disty == 1 || disty == -1)&&(!this.color.equals(p.color))) {
-                listPos = new int[]{p.xpos, p.ypos};
-            }
-        return listPos;
+                tablero[p.xpos][p.ypos].getChildren().remove(1);
+                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
+                tablero[this.xpos][this.ypos].getChildren().remove(1);
+        }    else{
+            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
+            a.show();
+        }
     }
 
 }

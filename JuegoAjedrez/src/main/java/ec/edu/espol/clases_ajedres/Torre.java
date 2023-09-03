@@ -6,6 +6,8 @@ package ec.edu.espol.clases_ajedres;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Alert;
+
 /**
  *
  * @author angelozurita
@@ -17,37 +19,86 @@ public class Torre extends Pieza {
     }
 
     @Override
-    public ArrayList<int[]> movimientos_posibles() {
+    public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
 
-        ArrayList<int[]> movimiento_posibles = new ArrayList<int[]>();
+        ArrayList<int[]> movimientosPosibles = new ArrayList<int[]>();
         for (int i = super.ypos + 1; i <= 7; i++) {
-            movimiento_posibles.add(new int[]{super.xpos, i});
+//            movimientosPosibles.add(new int[]{super.xpos, i});
+            int[]mov = {super.xpos, i};
+            if((tablero[mov[0]][mov[1]]).isOcupado()){
+                if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color))
+                    break;
+                else if (!(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)))
+                {
+                    movimientosPosibles.add(mov);
+//                    comerficha();
+                    break;
+                }}
+            movimientosPosibles.add(mov);             
         }
 
         for (int i = super.ypos - 1; i >= 0; i--) {
-            movimiento_posibles.add(new int[]{super.xpos, i});
+//            movimientosPosibles.add(new int[]{super.xpos, i});
+            int[]mov = {super.xpos, i};
+            if((tablero[mov[0]][mov[1]]).isOcupado()){
+                if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color))
+                    break;
+                else if (!(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)))
+                {
+                    movimientosPosibles.add(mov);
+//                    comerficha();
+                    break;  
+                }}  
+            movimientosPosibles.add(mov);  
         }
 
         for (int i = super.xpos + 1; i <= 7; i++) {
-            movimiento_posibles.add(new int[]{i, super.ypos});
+//            movimientosPosibles.add(new int[]{i, super.ypos});
+            int[]mov = {i, super.ypos};
+            if((tablero[mov[0]][mov[1]]).isOcupado()){
+                if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color))
+                    break;
+                else if (!(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)))
+                {
+                    movimientosPosibles.add(mov);
+//                    comerficha();
+                    break; 
+                }}
+            movimientosPosibles.add(mov);  
         }
 
         for (int i = super.xpos - 1; i >= 0; i--) {
-            movimiento_posibles.add(new int[]{i, super.ypos});
+//            movimientosPosibles.add(new int[]{i, super.ypos});
+            int[]mov = {i, super.ypos};
+            if((tablero[mov[0]][mov[1]]).isOcupado()){
+               if(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color))
+                   break;
+               else if (!(((Pieza)(tablero[mov[0]][mov[1]]).getChildren().get(1)).getColor().equals(this.color)))
+               {
+                   movimientosPosibles.add(mov);
+//                   comerficha();
+                   break; 
+               }}
+            movimientosPosibles.add(mov);           
         }
-        return movimiento_posibles;
+        return movimientosPosibles;
     }
 
     @Override
-    public int[] eliminarPieza(Pieza p) {
-        int[] listPos = {-1, -1};
+        public void eliminarPieza(Pieza p, Cuadro [][] tablero){
+
         int distx = this.xpos - p.xpos;
         int disty =this.ypos - p.ypos;
 
         if ((distx == 0 || disty == 0) && (!this.color.equals(p.color))) {
-            listPos = new int[]{p.xpos, p.ypos};
+           tablero[p.xpos][p.ypos].getChildren().remove(1);
+                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
+                tablero[this.xpos][this.ypos].getChildren().remove(1);
+        }else{
+            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
+            a.show();
         }
 
-        return listPos;
+        
     }
 }
