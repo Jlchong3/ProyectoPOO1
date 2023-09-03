@@ -5,15 +5,19 @@
 package ec.edu.espol.clases_ajedres;
 
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 /**
  *
  * @author angelozurita
  */
-public class Alfil extends Pieza{
-
+public class Alfil extends Pieza{   
     public Alfil(TipoColor color, int xpos, int ypos) {
         super(color, xpos, ypos);
+        if(color.equals(TipoColor.Blanco))
+            this.setImage(new Image("img/whiteBishop.png"));   
+        else 
+            this.setImage(new Image("img/blackBishop.png"));
     }
 
     @Override

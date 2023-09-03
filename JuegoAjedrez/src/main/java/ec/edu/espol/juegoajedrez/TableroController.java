@@ -4,9 +4,7 @@
  */
 package ec.edu.espol.juegoajedrez;
 
-import ec.edu.espol.clases_ajedres.Cuadro;
-import ec.edu.espol.clases_ajedres.Pieza;
-import ec.edu.espol.clases_ajedres.TipoColor;
+import ec.edu.espol.clases_ajedres.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -58,10 +56,11 @@ public class TableroController implements Initializable {
                 else
                     r.setFill(Color.rgb(223,230,245));
                 if (i == 1 ){
-                    ImageView img = new ImageView();
-                    img.setImage(new Image("img/blackPawn.png"));
+//                    ImageView img = new ImageView();
+//                    img.setImage(new Image("img/blackPawn.png"));
+                    Peon p = new Peon(TipoColor.Negro,i,j);
                     cuadro.setOcupado(true);
-                    cuadro.getChildren().addAll(r,img);
+                    cuadro.getChildren().addAll(r,p);
                 }else if( i==6){
                     ImageView img = new ImageView();
                     img.setImage(new Image("img/whitePawn.png"));

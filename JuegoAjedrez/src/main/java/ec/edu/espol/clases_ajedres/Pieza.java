@@ -5,18 +5,19 @@
 package ec.edu.espol.clases_ajedres;
 
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
  *
  * @author josel
  */
-public abstract  class Pieza extends ImageView{
+public class Pieza extends ImageView{
     
     protected TipoColor color;
     protected int xpos;
     protected int ypos;
-    
+
     
     public Pieza(TipoColor color,int xpos,int ypos){
         this.color = color;
@@ -24,6 +25,7 @@ public abstract  class Pieza extends ImageView{
         this.ypos = ypos;
     }
 
+   
     public void setXpos(int xpos) {
         this.xpos = xpos;
     }
@@ -43,9 +45,17 @@ public abstract  class Pieza extends ImageView{
     public int getYpos() {
         return ypos;
     }
+     
 
-    public abstract ArrayList<int[]> movimientos_posibles();
-    public abstract int[] eliminarPieza(Pieza p);
+   
+
+    public  ArrayList<int[]> movimientos_posibles(){
+        return null;
+    }
+    public  int[] eliminarPieza(Pieza p){
+        return null;
+    }
+
 
 }
     
