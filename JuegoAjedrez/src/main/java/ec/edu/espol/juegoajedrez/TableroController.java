@@ -59,72 +59,98 @@ public class TableroController implements Initializable {
                 llenarTablero(cuadro,r);
                 cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
                     int[] cuadropos = {cuadro.getXpos(),cuadro.getYpos()};
-                    Pieza actual = (Pieza)cuadro.getChildren().get(1);
-                    if ((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))){
-                        this.pieza = actual;
-                        this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                    }
-                    else if(cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && movimientosValidos.contains(cuadropos)){
-                        this.pieza.eliminarPieza(actual,matriz);
-                        this.pieza = null;
-                        this.movimientosValidos.clear();
-                    }
+                    boolean valido = Pieza.inMovimientosValidos(movimientosValidos, cuadropos);
+                    if(cuadro.isOcupado()){
+                        Pieza actual = (Pieza)cuadro.getChildren().get(1);
+                        if (((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))) && this.pieza == null){
+                            this.pieza = actual;
+                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                            for (int[] xd : this.movimientosValidos){
+                                System.out.println(xd[0]+","+xd[1]);
+                            }
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"primera vez");
+                            a.show();
+                        }
+                        else if(cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && valido){
+                            this.pieza.eliminarPieza(actual,matriz);
+                            this.pieza = null;
+                            this.movimientosValidos.clear();
+                            this.turnoBlanco = !this.turnoBlanco;
+                        }
 
-                    else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())){
-                        this.pieza = actual;
-                        this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                        else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())){
+                            this.pieza = actual;
+                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                            for (int[] xd : this.movimientosValidos){
+                                System.out.println(xd[0]+","+xd[1]);
+                            }
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"otra pieza color");
+                            a.show();
+                        }
                     }
-
-                    else if (!cuadro.isOcupado() && movimientosValidos.contains(cuadropos)){
-                        this.pieza.mover(cuadropos,matriz);
-                        this.pieza = null;
-                        this.movimientosValidos.clear();
+                    
+                    else{
+                        if (this.pieza != null && valido){
+                            this.pieza.mover(cuadropos,matriz);
+                            this.pieza = null;
+                            this.movimientosValidos.clear();
+                            this.turnoBlanco = !this.turnoBlanco;
+                        }
+                        
                     }
-                });
+                }
+                 
+                
+                
+                );
                 count++;
             }
         }
-        Reloj h1 = new Reloj(relojNegro);
-        Reloj h2 = new Reloj(relojBlanco);
+        Reloj h1 = new Reloj(relojNegro,(!turnoBlanco));
+        Reloj h2 = new Reloj(relojBlanco,turnoBlanco);
         h1.start();
         h2.start();
+        
+        
+        
     }
 	public class Reloj extends Thread{
         private int minutos;
         private int segundos;
         private Label reloj;
+        private boolean turno;
         
-        public Reloj(Label reloj){
+        public Reloj(Label reloj,boolean turno){
             this.reloj = reloj;
             this.minutos = 10;
             this.segundos = 0;
+            this.turno = turno;
         }
         
         @Override
         public void run(){
             while (minutos > 0 || segundos > 0){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                if (segundos == 0){
-                    minutos--;
-                    segundos = 60;
-                }
-                segundos--;
-                if (segundos < 10){
-                    Platform.runLater(()->{
-                        reloj.setText(minutos+":0"+segundos);
-                    });
-                }   
-                else{
-                    Platform.runLater(()->{
-                        reloj.setText(minutos+":"+segundos);
-                    });
-                }
-            }
-            
+                 try {
+                     Thread.sleep(1000);
+                 } catch (InterruptedException ex) {
+                 ex.printStackTrace();
+                 }
+                 if (segundos == 0){
+                     minutos--;
+                     segundos = 60;
+                 }
+                 segundos--;
+                 if (segundos < 10){
+                     Platform.runLater(()->{
+                         reloj.setText(minutos+":0"+segundos);
+                     });
+                 }   
+                 else{
+                     Platform.runLater(()->{
+                         reloj.setText(minutos+":"+segundos);
+                     });
+                 }
+             }
         }
     }
 

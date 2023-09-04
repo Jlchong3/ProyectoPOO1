@@ -158,22 +158,22 @@ public class Dama extends Pieza {
         return movimientosPosibles;
     }
 
-    @Override
-        public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
-        int distx = Math.abs(this.xpos - p.xpos);
-        int disty = Math.abs(this.ypos - p.ypos);
-
-        if ((distx == 0 || disty == 0 || distx == disty) && (!this.color.equals(p.color))) {
-            tablero[p.xpos][p.ypos].getChildren().remove(1);
-                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
-                tablero[this.xpos][this.ypos].getChildren().remove(1);
-                this.xpos = p.xpos;
-                this.ypos = p.ypos;
-        }else{
-            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
-            a.show();
-        }
-      
-    }
-
+//    @Override
+//        public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
+//        int distx = Math.abs(this.xpos - p.xpos);
+//        int disty = Math.abs(this.ypos - p.ypos);
+//
+//        if ((distx == 0 || disty == 0 || distx == disty) && (!this.color.equals(p.color))) {
+//            tablero[p.xpos][p.ypos].getChildren().remove(1);
+//                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
+//                tablero[this.xpos][this.ypos].getChildren().remove(1);
+//                this.xpos = p.xpos;
+//                this.ypos = p.ypos;
+//        }else{
+//            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
+//            a.show();
+//        }
+//      
+//    }
+//
 }

@@ -79,18 +79,12 @@ public class Peon extends Pieza {
 
     @Override
     public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
-            int distx = this.xpos - p.xpos;
-            int disty = this.ypos - p.ypos;
-            if ((distx == 1 || distx == -1) && (disty == 1 || disty == -1)&&(!this.color.equals(p.color))) {
-                tablero[p.xpos][p.ypos].getChildren().remove(1);
-                tablero[p.xpos][p.ypos].getChildren().add((Pieza)tablero[this.xpos][this.ypos].getChildren().get(1));
-                tablero[this.xpos][this.ypos].getChildren().remove(1);
-                this.xpos = p.xpos;
-                this.ypos = p.ypos;
-        }    else{
-            Alert a =new Alert(Alert.AlertType.CONFIRMATION, "No es posible eliminar la ficha");
-            a.show();
-        }
+            tablero[p.xpos][p.ypos].getChildren().remove(1);
+            tablero[this.xpos][this.ypos].getChildren().remove(1);
+            tablero[this.xpos][this.ypos].setOcupado(false);
+            tablero[p.xpos][p.ypos].getChildren().add(this);
+            tablero[p.xpos][p.ypos].setOcupado(true);
+            this.xpos = p.xpos;
+            this.ypos = p.ypos;
     }
-
 }

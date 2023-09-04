@@ -50,18 +50,34 @@ public class Pieza extends ImageView{
     public  ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero){
         return null;
     }
-    public  void eliminarPieza(Pieza p,Cuadro[][] tablero){
-      
+     public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
+        tablero[p.xpos][p.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].setOcupado(false);
+        tablero[p.xpos][p.ypos].getChildren().add(this);
+        tablero[p.xpos][p.ypos].setOcupado(true);
+        this.xpos = p.xpos;
+        this.ypos = p.ypos;
     }
+
 
     public void mover(int[] mov,Cuadro[][] tablero){
         tablero[this.xpos][this.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].setOcupado(false);
         tablero[mov[0]][mov[1]].getChildren().add(this);
+        tablero[mov[0]][mov[1]].setOcupado(true);
         this.xpos = mov[0];
         this.ypos = mov[1];
     }
-
-
+    
+    public static boolean inMovimientosValidos(ArrayList<int[]> movimientos, int[] posicion){
+        for (int[] mov: movimientos){
+            if (mov[0] == posicion[0] && mov[1] == posicion[1])
+                return true;
+        }
+        
+        return false;
+    }
 }
     
     
