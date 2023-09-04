@@ -5,6 +5,7 @@
 package ec.edu.espol.clases_ajedres;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Cuadro extends StackPane{
     private int xpos;
     private int ypos;
     private boolean ocupado;
+    private Color color;
 
     public Cuadro(int xpos, int ypos) {
         this.xpos = xpos;
@@ -21,6 +23,14 @@ public class Cuadro extends StackPane{
     }
 
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
     }

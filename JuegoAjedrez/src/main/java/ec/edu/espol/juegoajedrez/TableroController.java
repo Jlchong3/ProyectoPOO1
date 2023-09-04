@@ -44,13 +44,15 @@ public class TableroController implements Initializable {
     private Label jugador_blanca;
     @FXML
     private Label jugador_negra;
+
     /**
      * Initializes the controller class.
      */
-    public void setJugadores(String user_b ,String user_n){
+    public void setJugadores(String user_b, String user_n) {
         jugador_blanca.setText(user_b);
         jugador_negra.setText(user_n);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.matriz = new Cuadro[8][8];
@@ -58,68 +60,80 @@ public class TableroController implements Initializable {
         for (int i = 0; i < 8; i++) {
             count++;
             for (int j = 0; j < 8; j++) {
-                Cuadro cuadro = new Cuadro(i,j);
-                Rectangle r = new Rectangle(90,70);
-                if (count % 2 == 0)
-                    r.setFill(Color.rgb(70,83,115));
-                else
-                    r.setFill(Color.rgb(223,230,245));
-                llenarTablero(cuadro,r);
-                cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) ->{
-                    int[] cuadropos = {cuadro.getXpos(),cuadro.getYpos()};
+                Cuadro cuadro = new Cuadro(i, j);
+                Rectangle r = new Rectangle(90, 70);
+                if (count % 2 == 0) {
+                    r.setFill(Color.rgb(70, 83, 115));
+                    cuadro.setColor(Color.rgb(70, 83, 115));
+                } else {
+                    r.setFill(Color.rgb(223, 230, 245));
+                    cuadro.setColor(Color.rgb(223, 230, 245));
+                }
+                llenarTablero(cuadro, r);
+                cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                    int[] cuadropos = {cuadro.getXpos(), cuadro.getYpos()};
                     boolean valido = Pieza.inMovimientosValidos(movimientosValidos, cuadropos);
-                    if(cuadro.isOcupado()){
-                        Pieza actual = (Pieza)cuadro.getChildren().get(1);
-                        if (((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))) && this.pieza == null){
+                    if (cuadro.isOcupado()) {
+                        Pieza actual = (Pieza) cuadro.getChildren().get(1);
+                        if (((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))) && this.pieza == null) {
                             this.pieza = actual;
                             this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                            for (int[] xd : this.movimientosValidos){
-                   
-                                System.out.println(xd[0]+","+xd[1]);
+                            for (int[] xd : this.movimientosValidos) {
+                                Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
+                                c.setFill(Color.rgb(97, 166, 120   ));
                             }
-                            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"primera vez");
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "primera vez");
+                            a.show();
+                        } else if (cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && valido) {
+                            this.pieza.eliminarPieza(actual, matriz);
+                            this.pieza = null;
+                            for (int[] xd : this.movimientosValidos) {
+
+                                Platform.runLater(() -> {
+                                    Color colorCu = this.matriz[xd[0]][xd[1]].getColor();
+                                    Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
+                                    c.setFill(colorCu);
+                                }
+                                );
+                            }
+                            this.movimientosValidos.clear();
+                            this.turnoBlanco = !this.turnoBlanco;
+                        } else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())) {
+                            this.pieza = actual;
+                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                            for (int[] xd : this.movimientosValidos) {
+                                Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
+                                c.setFill(Color.rgb(97, 166, 120   ));
+                            }
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "otra pieza color");
                             a.show();
                         }
-                        else if(cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && valido){
-                            this.pieza.eliminarPieza(actual,matriz);
+                    } else {
+                        if (this.pieza != null && valido) {
+                            this.pieza.mover(cuadropos, matriz);
+                            for (int[] xd : this.movimientosValidos) {
+
+                                Platform.runLater(() -> {
+                                    Color colorCu = this.matriz[xd[0]][xd[1]].getColor();
+                                    Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
+                                    c.setFill(colorCu);
+                                }
+                                );
+                            }
                             this.pieza = null;
                             this.movimientosValidos.clear();
                             this.turnoBlanco = !this.turnoBlanco;
                         }
 
-                        else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())){
-                            this.pieza = actual;
-                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                            for (int[] xd : this.movimientosValidos){
-                                System.out.println(xd[0]+","+xd[1]);
-                            }
-                            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"otra pieza color");
-                            a.show();
-                        }
-                    }
-                    
-                    else{
-                        if (this.pieza != null && valido){
-                            this.pieza.mover(cuadropos,matriz);
-                            this.pieza = null;
-                            this.movimientosValidos.clear();
-                            this.turnoBlanco = !this.turnoBlanco;
-                        }
-                        
                     }
                 }
-                 
-                
-                
                 );
                 count++;
             }
         }
-        Reloj h1 = new Reloj(relojNegro,relojBlanco);
+        Reloj h1 = new Reloj(relojNegro, relojBlanco);
         h1.start();
-        
-        
-        
+
     }
 //	public class Reloj extends Thread{
 //        private int minutos;
@@ -162,7 +176,9 @@ public class TableroController implements Initializable {
 //             }
 //        }
 //    }
-    public class Reloj extends Thread{
+
+    public class Reloj extends Thread {
+
         private Label relojNegro;
         private Label relojBlanco;
         private int minutosNegro;
@@ -170,121 +186,105 @@ public class TableroController implements Initializable {
         private int minutosBlanco;
         private int segundosBlanco;
 
-        public Reloj(Label relojNegro,Label relojBlanco){
+        public Reloj(Label relojNegro, Label relojBlanco) {
             this.relojNegro = relojNegro;
             this.relojBlanco = relojBlanco;
             this.minutosNegro = 10;
             this.minutosBlanco = 10;
             this.segundosBlanco = 0;
             this.segundosNegro = 0;
-                
+
         }
+
         @Override
-        public void run(){
-            while((minutosNegro > 0 || segundosNegro > 0) && (minutosBlanco > 0 || segundosBlanco>0)){
-                while(turnoBlanco)
-                {
-                 try {
-                     Thread.sleep(1000);
-                 } catch (InterruptedException ex) {
-                 ex.printStackTrace();
-                 }
-                 if (segundosBlanco == 0){
-                     minutosBlanco--;
-                     segundosBlanco = 60;
-                 }
-                 segundosBlanco--;
-                 if (segundosBlanco < 10){
-                     Platform.runLater(()->{
-                         relojBlanco.setText(minutosBlanco+":0"+segundosBlanco);
-                     });
-                 }   
-                 else{
-                     Platform.runLater(()->{
-                         relojBlanco.setText(minutosBlanco+":"+segundosBlanco);
-                     });
+        public void run() {
+            while ((minutosNegro > 0 || segundosNegro > 0) && (minutosBlanco > 0 || segundosBlanco > 0)) {
+                while (turnoBlanco) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    if (segundosBlanco == 0) {
+                        minutosBlanco--;
+                        segundosBlanco = 60;
+                    }
+                    segundosBlanco--;
+                    if (segundosBlanco < 10) {
+                        Platform.runLater(() -> {
+                            relojBlanco.setText(minutosBlanco + ":0" + segundosBlanco);
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            relojBlanco.setText(minutosBlanco + ":" + segundosBlanco);
+                        });
+                    }
+
+                    while (!turnoBlanco) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        if (segundosNegro == 0) {
+                            minutosNegro--;
+                            segundosNegro = 60;
+                        }
+                        segundosNegro--;
+                        if (segundosNegro < 10) {
+                            Platform.runLater(() -> {
+                                relojNegro.setText(minutosNegro + ":0" + segundosNegro);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                relojNegro.setText(minutosNegro + ":" + segundosNegro);
+                            });
+                        }
+                    }
+
                 }
-        
-                while(!turnoBlanco){
-                try {
-                     Thread.sleep(1000);
-                 } catch (InterruptedException ex) {
-                 ex.printStackTrace();
-                 }
-                 if (segundosNegro == 0){
-                     minutosNegro--;
-                     segundosNegro = 60;
-                 }
-                 segundosNegro--;
-                 if (segundosNegro < 10){
-                     Platform.runLater(()->{
-                         relojNegro.setText(minutosNegro+":0"+segundosNegro);
-                     });
-                 }   
-                 else{
-                     Platform.runLater(()->{
-                         relojNegro.setText(minutosNegro+":"+segundosNegro);
-                     });
-                }
-                }
-        
-         }}}}
-    public void llenarTablero(Cuadro cuadro,Rectangle r){
+            }
+        }
+    }
+
+    public void llenarTablero(Cuadro cuadro, Rectangle r) {
         int x = cuadro.getXpos();
         int y = cuadro.getYpos();
         Pieza p = null;
-        if(x == 1){
-            p = new Peon(TipoColor.Negro,x,y);
+        if (x == 1) {
+            p = new Peon(TipoColor.Negro, x, y);
+        } else if (x == 6) {
+            p = new Peon(TipoColor.Blanco, x, y);
+        } else if (x == 7 && (y == 0 || y == 7)) {
+            p = new Torre(TipoColor.Blanco, x, y);
+        } else if (x == 0 && (y == 0 || y == 7)) {
+            p = new Torre(TipoColor.Negro, x, y);
+        } else if (x == 7 && (y == 1 || y == 6)) {
+            p = new Caballo(TipoColor.Blanco, x, y);
+        } else if (x == 0 && (y == 1 || y == 6)) {
+            p = new Caballo(TipoColor.Negro, x, y);
+        } else if (x == 7 && (y == 2 || y == 5)) {
+            p = new Alfil(TipoColor.Blanco, x, y);
+        } else if (x == 0 && (y == 2 || y == 5)) {
+            p = new Alfil(TipoColor.Negro, x, y);
+        } else if (x == 7 && y == 3) {
+            p = new Dama(TipoColor.Blanco, x, y);
+        } else if (x == 0 && y == 3) {
+            p = new Dama(TipoColor.Negro, x, y);
+        } else if (x == 7 && y == 4) {
+            p = new Rey(TipoColor.Blanco, x, y);
+        } else if (x == 0 && y == 4) {
+            p = new Rey(TipoColor.Negro, x, y);
         }
-        else if(x == 6){
-            p = new Peon(TipoColor.Blanco,x,y);
-        }
-        
-        else if (x == 7 && (y == 0 || y == 7)){
-            p = new Torre(TipoColor.Blanco,x,y);
-        }
-        
-        else if (x == 0 && (y == 0 || y == 7)){
-            p = new Torre(TipoColor.Negro,x,y);
-        }
-        
-        else if (x == 7 && (y == 1 || y == 6)){
-            p = new Caballo(TipoColor.Blanco,x,y);
-        }
-        
-        else if (x == 0 && (y == 1 || y == 6)){
-            p = new Caballo(TipoColor.Negro,x,y);
-        }
-        
-        else if (x == 7 && (y == 2 || y == 5)){
-            p = new Alfil(TipoColor.Blanco,x,y);
-        }
-        
-        else if (x == 0 && (y == 2 || y == 5)){
-            p = new Alfil(TipoColor.Negro,x,y);
-        }
-        else if (x == 7 && y == 3){
-            p = new Dama(TipoColor.Blanco,x,y);
-        }
-        else if (x == 0 && y == 3){
-            p = new Dama(TipoColor.Negro,x,y);
-        }
-        else if (x == 7 && y == 4){
-            p = new Rey(TipoColor.Blanco,x,y);
-        }
-        else if (x == 0 && y == 4){
-            p = new Rey(TipoColor.Negro,x,y);
-        }
-        if (p == null){
+        if (p == null) {
             cuadro.getChildren().addAll(r);
             tablero.add(cuadro, y, x);
             matriz[x][y] = cuadro;
-        }
-        else{
-            cuadro.getChildren().addAll(r,p);
+        } else {
+            cuadro.getChildren().addAll(r, p);
             cuadro.setOcupado(true);
             tablero.add(cuadro, y, x);
             matriz[x][y] = cuadro;
         }
-    } 
- }
+    }
+}

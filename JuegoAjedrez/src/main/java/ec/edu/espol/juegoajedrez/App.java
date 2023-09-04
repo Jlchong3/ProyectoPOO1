@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("tablero"));
+        scene = new Scene(loadFXML("Login"));
         scene.getStylesheets().add(getClass().getResource("Styles/style1.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
