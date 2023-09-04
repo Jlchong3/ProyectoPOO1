@@ -107,54 +107,120 @@ public class TableroController implements Initializable {
                 count++;
             }
         }
-        Reloj h1 = new Reloj(relojNegro,(!turnoBlanco));
-        Reloj h2 = new Reloj(relojBlanco,turnoBlanco);
+        Reloj h1 = new Reloj(relojNegro,relojBlanco);
         h1.start();
-        h2.start();
         
         
         
     }
-	public class Reloj extends Thread{
-        private int minutos;
-        private int segundos;
-        private Label reloj;
-        private boolean turno;
-        
-        public Reloj(Label reloj,boolean turno){
-            this.reloj = reloj;
-            this.minutos = 10;
-            this.segundos = 0;
-            this.turno = turno;
+//	public class Reloj extends Thread{
+//        private int minutos;
+//        private int segundos;
+////        private Label reloj;
+////        private boolean turno;
+//        
+//        
+//        public Reloj(Label reloj,boolean turno){
+////            this.reloj = reloj;
+//            this.minutos = 10;
+//            this.segundos = 0;
+//            this.turno = turno;
+//        }
+//        
+//        @Override
+//        public void run(){
+//            while(turnoBlanco)
+//            while (minutos > 0 || segundos > 0){
+//                 try {
+//                     Thread.sleep(1000);
+//                 } catch (InterruptedException ex) {
+//                 ex.printStackTrace();
+//                 }
+//                 if (segundos == 0){
+//                     minutos--;
+//                     segundos = 60;
+//                 }
+//                 segundos--;
+//                 if (segundos < 10){
+//                     Platform.runLater(()->{
+//                         reloj.setText(minutos+":0"+segundos);
+//                     });
+//                 }   
+//                 else{
+//                     Platform.runLater(()->{
+//                         reloj.setText(minutos+":"+segundos);
+//                     });
+//                 }
+//             }
+//        }
+//    }
+    public class Reloj extends Thread{
+        private Label relojNegro;
+        private Label relojBlanco;
+        private int minutosNegro;
+        private int segundosNegro;
+        private int minutosBlanco;
+        private int segundosBlanco;
+
+        public Reloj(Label relojNegro,Label relojBlanco){
+            this.relojNegro = relojNegro;
+            this.relojBlanco = relojBlanco;
+            this.minutosNegro = 10;
+            this.minutosBlanco = 10;
+            this.segundosBlanco = 0;
+            this.segundosNegro = 0;
+                
         }
-        
         @Override
         public void run(){
-            while (minutos > 0 || segundos > 0){
+            while((minutosNegro > 0 || segundosNegro > 0) && (minutosBlanco > 0 || segundosBlanco>0)){
+                while(turnoBlanco)
+                {
                  try {
                      Thread.sleep(1000);
                  } catch (InterruptedException ex) {
                  ex.printStackTrace();
                  }
-                 if (segundos == 0){
-                     minutos--;
-                     segundos = 60;
+                 if (segundosBlanco == 0){
+                     minutosBlanco--;
+                     segundosBlanco = 60;
                  }
-                 segundos--;
-                 if (segundos < 10){
+                 segundosBlanco--;
+                 if (segundosBlanco < 10){
                      Platform.runLater(()->{
-                         reloj.setText(minutos+":0"+segundos);
+                         relojBlanco.setText(minutosBlanco+":0"+segundosBlanco);
                      });
                  }   
                  else{
                      Platform.runLater(()->{
-                         reloj.setText(minutos+":"+segundos);
+                         relojBlanco.setText(minutosBlanco+":"+segundosBlanco);
                      });
+                }
+        
+                while(!turnoBlanco){
+                try {
+                     Thread.sleep(1000);
+                 } catch (InterruptedException ex) {
+                 ex.printStackTrace();
                  }
-             }
-        }
-    }
-
+                 if (segundosNegro == 0){
+                     minutosNegro--;
+                     segundosNegro = 60;
+                 }
+                 segundosNegro--;
+                 if (segundosNegro < 10){
+                     Platform.runLater(()->{
+                         relojNegro.setText(minutosNegro+":0"+segundosNegro);
+                     });
+                 }   
+                 else{
+                     Platform.runLater(()->{
+                         relojNegro.setText(minutosNegro+":"+segundosNegro);
+                     });
+                }
+                }
+        
+         }}}}
     public void llenarTablero(Cuadro cuadro,Rectangle r){
         int x = cuadro.getXpos();
         int y = cuadro.getYpos();
@@ -213,4 +279,4 @@ public class TableroController implements Initializable {
             matriz[x][y] = cuadro;
         }
     } 
-}
+ }
