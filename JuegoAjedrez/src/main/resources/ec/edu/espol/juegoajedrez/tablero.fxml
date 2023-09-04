@@ -26,7 +26,7 @@
                   <Image url="@../../../../img/Sample_User_Icon.png" />
                </image>
             </ImageView>
-            <Label prefHeight="37.0" prefWidth="98.0" text="Jugador 2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="jugador_negra" prefHeight="37.0" prefWidth="98.0" text="Jugador 2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Image url="@../../../../img/Sample_User_Icon.png" />
                </image>
             </ImageView>
-            <Label prefHeight="37.0" prefWidth="98.0" text="Jugador 1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="jugador_blanca" prefHeight="37.0" prefWidth="98.0" text="Jugador 1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>

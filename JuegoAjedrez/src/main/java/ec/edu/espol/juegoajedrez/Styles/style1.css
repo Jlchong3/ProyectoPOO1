@@ -1,0 +1,33 @@
+.rounded-text-field {
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+.centered-text-field {
+    -fx-alignment: CENTER;
+}
+.beautiful-button {
+    -fx-background-color: #1a2a34;
+/*    -fx-text-fill: white;*/
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+/*    -fx-font-size: 14px;*/
+    -fx-border: 2px solid #2e3b4a;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 3, 3);
+    -fx-transition: all 0.3s ease;
+}
+
+.beautiful-button:hover {
+    -fx-background-color: #2e3b4a;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.beautiful-button:pressed {
+    -fx-background-color: #0e1b24;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 2, 0, 2, 2);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+

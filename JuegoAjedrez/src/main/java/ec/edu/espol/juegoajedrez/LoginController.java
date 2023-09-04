@@ -11,12 +11,20 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -30,21 +38,43 @@ public class LoginController implements Initializable {
     private PasswordField pwd;
     @FXML
     private TextField email;
+    @FXML
+    private BorderPane principal;
+    @FXML
+    private Label logan;
+    @FXML
+    private Button Registrar;
+    @FXML
+    private Button Ingresar;
+    @FXML
+    private Button Cancelar;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Color myColor = Color.web("#042474");;
+        principal.setBackground(new Background(new BackgroundFill (myColor, null, null)));
+        Color Color2 = Color.WHITE;
+        CornerRadii cornerRadii = new CornerRadii(10); // El número representa los píxeles del radio de las esquinas. Ajusta según tus necesidades.
+        logan.setBackground(new Background(new BackgroundFill(Color2, cornerRadii, null)));
+        email.getStyleClass().addAll("rounded-text-field","centered-text-field");
+        pwd.getStyleClass().addAll("rounded-text-field","centered-text-field");
+        Color color_button = Color.web("#1a2a34");
+        Registrar.getStyleClass().add("beautiful-button");
+        Ingresar.getStyleClass().add("beautiful-button");
+        Cancelar.getStyleClass().add("beautiful-button");
+   
     }
 
     @FXML
     private void VentanaRegistrar(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("registro.fxml"));
 
         Scene scene = new Scene(root); // a donde quiere ir
         Stage stage = (Stage) email.getScene().getWindow(); // donde estoy
+        scene.getStylesheets().add(getClass().getResource("Styles/style1.css").toExternalForm());
         stage.setScene(scene);
     }
 
@@ -68,10 +98,12 @@ public class LoginController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "El Correo o Contraseña no es el correcto");
             a.show();
         } else {
-            Parent root = FXMLLoader.load(getClass().getResource("tablero.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("jugadores.fxml"));
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) email.getScene().getWindow();
+            scene.getStylesheets().add(getClass().getResource("Styles/style1.css").toExternalForm());
+            
             stage.setScene(scene);
         }
     }

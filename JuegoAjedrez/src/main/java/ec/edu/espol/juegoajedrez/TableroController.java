@@ -40,9 +40,17 @@ public class TableroController implements Initializable {
     @FXML
     private Label relojBlanco;
     private boolean turnoBlanco = true;
+    @FXML
+    private Label jugador_blanca;
+    @FXML
+    private Label jugador_negra;
     /**
      * Initializes the controller class.
      */
+    public void setJugadores(String user_b ,String user_n){
+        jugador_blanca.setText(user_b);
+        jugador_negra.setText(user_n);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.matriz = new Cuadro[8][8];
