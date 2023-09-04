@@ -66,6 +66,7 @@ public class TableroController implements Initializable {
                             this.pieza = actual;
                             this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
                             for (int[] xd : this.movimientosValidos){
+                   
                                 System.out.println(xd[0]+","+xd[1]);
                             }
                             Alert a = new Alert(Alert.AlertType.CONFIRMATION,"primera vez");
