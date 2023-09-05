@@ -131,7 +131,13 @@ public class TableroController implements Initializable {
                                 }
                                 else{
                                     this.pieza = actual;
-                                    this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                                    if (this.pieza instanceof Rey){
+                                            Rey king = (Rey)this.pieza;
+                                            this.movimientosValidos =  king.movimientosRestantes(matriz, allMovesPosibles);
+                                        }
+                                    else
+                                        this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                                   
                                 }
                                 for (int[] m : this.movimientosValidos) {
                                     Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
@@ -180,7 +186,12 @@ public class TableroController implements Initializable {
                                 }
                                 else{
                                     this.pieza = actual;
-                                    this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                                        if (this.pieza instanceof Rey){
+                                            Rey king = (Rey)this.pieza;
+                                            this.movimientosValidos=  king.movimientosRestantes(matriz, allMovesPosibles);
+                                        }
+                                        else
+                                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
                                 }
                                 for (int[] m : this.movimientosValidos) {
                                     Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);

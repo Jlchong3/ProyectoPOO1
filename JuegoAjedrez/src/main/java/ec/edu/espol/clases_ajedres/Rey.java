@@ -25,7 +25,7 @@ public class Rey extends Pieza {
 
     @Override
     public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
-
+        
         ArrayList<int[]> movimientos = this.getMovimientosSinValidar();
         ArrayList<int[]> movimientoPosibles = new ArrayList<>();
 
