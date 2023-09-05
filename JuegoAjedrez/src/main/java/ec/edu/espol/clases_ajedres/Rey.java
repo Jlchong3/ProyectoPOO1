@@ -26,10 +26,8 @@ public class Rey extends Pieza {
     @Override
     public ArrayList<int[]> movimientos_posibles(Cuadro[][] tablero) {
 
-        int[][] movimientos = {
-            {super.xpos + 1, super.ypos}, {super.xpos - 1, super.ypos}, {super.xpos, super.ypos + 1}, {super.xpos, super.ypos - 1},
-            {super.xpos + 1, super.ypos + 1}, {super.xpos - 1, super.ypos - 1}, {super.xpos + 1, super.ypos - 1}, {super.xpos - 1, super.ypos + 1}};
-        ArrayList<int[]> movimientoPosibles = new ArrayList<int[]>();
+        ArrayList<int[]> movimientos = this.getMovimientosSinValidar();
+        ArrayList<int[]> movimientoPosibles = new ArrayList<>();
 
         for (int[] movimiento : movimientos) {
             if (movimiento[0] >= 0 && movimiento[0] <= 7 && movimiento[1] >= 0 && movimiento[1] <= 7) {
@@ -48,6 +46,63 @@ public class Rey extends Pieza {
         return movimientoPosibles;
 
     }
+    public ArrayList<int[]> getMovimientosSinValidar(){
+        ArrayList<int[]> moves = new ArrayList<>();
+        int[][] movimientos = {
+            {super.xpos + 1, super.ypos}, {super.xpos - 1, super.ypos}, {super.xpos, super.ypos + 1}, {super.xpos, super.ypos - 1},
+            {super.xpos + 1, super.ypos + 1}, {super.xpos - 1, super.ypos - 1}, {super.xpos + 1, super.ypos - 1}, {super.xpos - 1, super.ypos + 1}};
+        for (int[] m : movimientos){
+           moves.add(m); 
+        }
+        return moves;
+    }
+    
+    public ArrayList<int[]> movimientosRestantes(Cuadro[][] tablero, ArrayList<int[]> movRivales){
+        ArrayList<int[]> movJaque = new ArrayList<>();
+        ArrayList<int[]> mov = this.movimientos_posibles(tablero);
+        for (int[] m : mov){
+            if (!Pieza.inMovimientos(movRivales, m))
+                movJaque.add(m);
+        }
+        return movJaque;     
+    }
+    
+    
+    public boolean trabas(Cuadro[][] tablero, ArrayList<int[]> movRivales){
+        ArrayList<int[]> piezasPos = new ArrayList<>();
+        ArrayList<int[]> filtro = new ArrayList<>();
+        Pieza p;
+        int[] xy = new int[2];       
+        for (Cuadro[] z : tablero){
+            for (Cuadro c : z){     
+                if (c.isOcupado()){
+                    p = (Pieza)c.getChildren().get(1);
+                    if(p.getColor().equals(this.color)){
+                        xy[0] = p.getXpos();
+                        xy[1] = p.getYpos();
+                        piezasPos.add(xy);
+                    }
+                }     
+            }
+        }
+        for (int[] m: this.getMovimientosSinValidar()){
+            if (!Pieza.inMovimientos(piezasPos, m))
+                filtro.add(m);
+        }
+        if (filtro.isEmpty()){
+            return false;
+        }
+        else{
+            ArrayList<int[]> filtro2 = new ArrayList<>();
+            for (int[] f: filtro){
+                if(!Pieza.inMovimientos(movRivales, f))
+                    filtro2.add(f);
+            }
+            return filtro2.isEmpty();
+        }
+    }
+    
+    
 
 //    @Override
 //    public void eliminarPieza(Pieza p,Cuadro[][] tablero){

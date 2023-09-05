@@ -37,7 +37,6 @@ public class Peon extends Pieza {
             // Mover dos espacios desde la posición inicial
             if (primerMovimiento && !(tablero[this.xpos+2][this.ypos].isOcupado())) {
                 movimientos_posibles.add(new int[]{this.xpos+2, this.ypos});
-                this.primerMovimiento = false;
             }
         }
         
@@ -61,7 +60,6 @@ public class Peon extends Pieza {
             // Mover dos espacios desde la posición inicial
             if (primerMovimiento && !(tablero[this.xpos-2][this.ypos].isOcupado())) {
                 movimientos_posibles.add(new int[]{this.xpos-2, this.ypos});
-                this.primerMovimiento = false;
             }
         }
         
@@ -79,12 +77,22 @@ public class Peon extends Pieza {
 
     @Override
     public void eliminarPieza(Pieza p, Cuadro [][] tablero) {
-            tablero[p.xpos][p.ypos].getChildren().remove(1);
-            tablero[this.xpos][this.ypos].getChildren().remove(1);
-            tablero[this.xpos][this.ypos].setOcupado(false);
-            tablero[p.xpos][p.ypos].getChildren().add(this);
-            tablero[p.xpos][p.ypos].setOcupado(true);
-            this.xpos = p.xpos;
-            this.ypos = p.ypos;
+        tablero[p.xpos][p.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].setOcupado(false);
+        tablero[p.xpos][p.ypos].getChildren().add(this);
+        tablero[p.xpos][p.ypos].setOcupado(true);
+        this.xpos = p.xpos;
+        this.ypos = p.ypos;
     }
+    
+    public void mover(int[] mov,Cuadro[][] tablero){
+        tablero[this.xpos][this.ypos].getChildren().remove(1);
+        tablero[this.xpos][this.ypos].setOcupado(false);
+        tablero[mov[0]][mov[1]].getChildren().add(this);
+        tablero[mov[0]][mov[1]].setOcupado(true);
+        this.xpos = mov[0];
+        this.ypos = mov[1];
+        this.primerMovimiento = false;
+    } 
 }

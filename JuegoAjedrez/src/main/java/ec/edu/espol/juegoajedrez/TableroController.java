@@ -32,9 +32,15 @@ public class TableroController implements Initializable {
 
     @FXML
     private GridPane tablero;
+    private boolean enJuego = true;
     private Cuadro[][] matriz;
+    private boolean ganador;
     private Pieza pieza;
+    private boolean jaque;
     private ArrayList<int[]> movimientosValidos = new ArrayList<>();
+    private ArrayList<int[]> allMovesPosibles = new ArrayList<>();
+    private Rey ReyBlanco;
+    private Rey ReyNegro;
     @FXML
     private Label relojNegro;
     @FXML
@@ -44,6 +50,7 @@ public class TableroController implements Initializable {
     private Label jugador_blanca;
     @FXML
     private Label jugador_negra;
+    private boolean trabas;
 
     /**
      * Initializes the controller class.
@@ -55,6 +62,8 @@ public class TableroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        relojNegro.setText("10:00");
+        relojBlanco.setText("10:00");
         this.matriz = new Cuadro[8][8];
         int count = 0;
         for (int i = 0; i < 8; i++) {
@@ -71,69 +80,170 @@ public class TableroController implements Initializable {
                 }
                 llenarTablero(cuadro, r);
                 cuadro.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-                    int[] cuadropos = {cuadro.getXpos(), cuadro.getYpos()};
-                    boolean valido = Pieza.inMovimientosValidos(movimientosValidos, cuadropos);
-                    if (cuadro.isOcupado()) {
-                        Pieza actual = (Pieza) cuadro.getChildren().get(1);
-                        if (((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))) && this.pieza == null) {
-                            this.pieza = actual;
+                    String relojb = (String)this.relojBlanco.getText();
+                    String relojn = (String)this.relojBlanco.getText();
+                    Rey rey;
+                    if(turnoBlanco){
+                        rey = this.ReyBlanco;
+                    }    
+                    else{
+                        rey = this.ReyNegro;
+                    }
+                    int[] reypos = {rey.getXpos(),rey.getYpos()};
+                   
+                    if(rey.trabas(matriz, allMovesPosibles)){
+                        enJuego = false;
+                        trabas = true;
+                    }
+                    
+                    if(Pieza.inMovimientos(this.allMovesPosibles,reypos)){
+                        jaque = true;
+                    }
+                    
+                    
+                    if(jaque && rey.movimientosRestantes(matriz, allMovesPosibles).isEmpty()){
+                        enJuego = false;
+                        ganador = !turnoBlanco;
+                    } 
+                    if(relojn.equals("0:00")){
+                        enJuego = false;
+                        ganador = true;
+                    }
+                    if(relojb.equals("0:00")){
+                        enJuego = false;
+                        ganador = false;
+                    }
+   
+                    if(enJuego){
+                        int[] cuadropos = {cuadro.getXpos(), cuadro.getYpos()};
+                        boolean valido = Pieza.inMovimientos(movimientosValidos, cuadropos);
+                        if(jaque && this.pieza == null){
+                            this.pieza = (Pieza)matriz[reypos[0]][reypos[1]].getChildren().get(1);
                             this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                            for (int[] xd : this.movimientosValidos) {
-                                Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
-                                c.setFill(Color.rgb(97, 166, 120   ));
-                            }
-                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "primera vez");
-                            a.show();
-                        } else if (cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && valido) {
-                            this.pieza.eliminarPieza(actual, matriz);
-                            this.pieza = null;
-                            for (int[] xd : this.movimientosValidos) {
-
-                                Platform.runLater(() -> {
-                                    Color colorCu = this.matriz[xd[0]][xd[1]].getColor();
-                                    Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
-                                    c.setFill(colorCu);
-                                }
-                                );
-                            }
-                            this.movimientosValidos.clear();
-                            this.turnoBlanco = !this.turnoBlanco;
-                        } else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())) {
-                            this.pieza = actual;
-                            this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
-                            for (int[] xd : this.movimientosValidos) {
-                                Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
-                                c.setFill(Color.rgb(97, 166, 120   ));
-                            }
-                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "otra pieza color");
-                            a.show();
                         }
-                    } else {
-                        if (this.pieza != null && valido) {
-                            this.pieza.mover(cuadropos, matriz);
-                            for (int[] xd : this.movimientosValidos) {
-
-                                Platform.runLater(() -> {
-                                    Color colorCu = this.matriz[xd[0]][xd[1]].getColor();
-                                    Rectangle c = (Rectangle) this.matriz[xd[0]][xd[1]].getChildren().get(0);
-                                    c.setFill(colorCu);
+                        else if (cuadro.isOcupado()){
+                            Pieza actual = (Pieza) cuadro.getChildren().get(1);
+                            if (((turnoBlanco && actual.getColor().equals(TipoColor.Blanco)) || (!turnoBlanco && actual.getColor().equals(TipoColor.Negro))) && this.pieza == null) {
+                                if (jaque){
+                                    this.pieza = (Pieza)matriz[reypos[0]][reypos[1]].getChildren().get(1);
+                                    Rey king = (Rey) this.pieza;
+                                    this.movimientosValidos = king.movimientosRestantes(matriz, allMovesPosibles);
                                 }
-                                );
-                            }
-                            this.pieza = null;
-                            this.movimientosValidos.clear();
-                            this.turnoBlanco = !this.turnoBlanco;
-                        }
+                                else{
+                                    this.pieza = actual;
+                                    this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                                }
+                                for (int[] m : this.movimientosValidos) {
+                                    Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
+                                    c.setFill(Color.rgb(97, 166, 120   ));
+                                }
+                            } 
+                            else if (cuadro.isOcupado() && this.pieza != null && !actual.getColor().equals(this.pieza.getColor()) && valido) {
+                                this.pieza.eliminarPieza(actual, matriz);
+                                if (this.pieza instanceof Rey){
+                                    if(turnoBlanco){
+                                        this.ReyBlanco.setXpos(this.pieza.getXpos());
+                                        this.ReyBlanco.setYpos( this.pieza.getYpos());
+                                    }
+                                    else{
+                                        this.ReyNegro.setXpos(this.pieza.getXpos());
+                                        this.ReyNegro.setYpos(this.pieza.getYpos());
+                                    }
+                                    if (jaque){
+                                        jaque = false;
+                                    }
+                                }
+                                this.pieza = null;
+                                for (int[] m : this.movimientosValidos) {
 
+                                    Platform.runLater(() -> {
+                                        Color colorCu = this.matriz[m[0]][m[1]].getColor();
+                                        Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
+                                        c.setFill(colorCu);
+                                    }
+                                    );
+                                }
+                                this.movimientosValidos.clear();
+                                this.turnoBlanco = !this.turnoBlanco;
+                                this.allMovesPosibles = Pieza.allMovimientosPosibles(matriz, !turnoBlanco);
+                            } 
+                            else if (cuadro.isOcupado() && this.pieza != null && actual.getColor().equals(this.pieza.getColor())) {
+                                for (int[] m : this.movimientosValidos){
+                                    Color colorCu = this.matriz[m[0]][m[1]].getColor();
+                                    Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
+                                    c.setFill(colorCu);
+                                } 
+                                if (jaque){
+                                    this.pieza = (Pieza)matriz[reypos[0]][reypos[1]].getChildren().get(1);   
+                                    Rey king = (Rey) this.pieza;
+                                    this.movimientosValidos = king.movimientosRestantes(matriz, allMovesPosibles);
+                                }
+                                else{
+                                    this.pieza = actual;
+                                    this.movimientosValidos = this.pieza.movimientos_posibles(matriz);
+                                }
+                                for (int[] m : this.movimientosValidos) {
+                                    Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
+                                    c.setFill(Color.rgb(97, 166, 120));
+                                }
+                            }
+                        } 
+                        else {
+                            if (this.pieza != null && valido) {
+                                this.pieza.mover(cuadropos, matriz);
+                                if (this.pieza instanceof Rey){
+                                    if(turnoBlanco){
+                                        this.ReyBlanco.setXpos(this.pieza.getXpos());
+                                        this.ReyBlanco.setYpos( this.pieza.getYpos());
+                                    }
+                                    else{
+                                        this.ReyNegro.setXpos(this.pieza.getXpos());
+                                        this.ReyNegro.setYpos( this.pieza.getYpos());
+                                    }
+                                    if (jaque){
+                                        jaque = false;
+                                    }
+                                }
+                                for (int[] m : this.movimientosValidos) {
+
+                                    Platform.runLater(() -> {
+                                        Color colorCu = this.matriz[m[0]][m[1]].getColor();
+                                        Rectangle c = (Rectangle) this.matriz[m[0]][m[1]].getChildren().get(0);
+                                        c.setFill(colorCu);
+                                    }
+                                    );
+                                }
+                                this.pieza = null;
+                                this.movimientosValidos.clear();
+                                this.turnoBlanco = !this.turnoBlanco;
+                                this.allMovesPosibles = Pieza.allMovimientosPosibles(matriz, !turnoBlanco);
+                            }
+
+                        }
+                    }
+                    //solucion temporal (Arreglen esto xd)
+                    else{
+                        Alert a;
+                        if (trabas){
+                            a = new Alert(Alert.AlertType.CONFIRMATION,"Empate por rey Ahogado");
+                        }
+                        else if (ganador){
+                            a = new Alert(Alert.AlertType.CONFIRMATION,"Ganaron las Blancas");
+                        }
+                        else{
+                            a = new Alert(Alert.AlertType.CONFIRMATION,"Ganaron las Negras");
+                        }
+                        a.show();
                     }
                 }
                 );
                 count++;
             }
         }
+        this.ReyBlanco = (Rey)matriz[7][4].getChildren().get(1);
+        this.ReyNegro = (Rey)matriz[0][4].getChildren().get(1);
         Reloj h1 = new Reloj(relojNegro, relojBlanco);
         h1.start();
-
     }
 //	public class Reloj extends Thread{
 //        private int minutos;
@@ -287,4 +397,5 @@ public class TableroController implements Initializable {
             matriz[x][y] = cuadro;
         }
     }
+    
 }

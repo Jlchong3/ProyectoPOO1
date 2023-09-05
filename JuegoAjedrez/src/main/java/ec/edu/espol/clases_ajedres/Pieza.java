@@ -70,13 +70,44 @@ public class Pieza extends ImageView{
         this.ypos = mov[1];
     }
     
-    public static boolean inMovimientosValidos(ArrayList<int[]> movimientos, int[] posicion){
+    public static boolean inMovimientos(ArrayList<int[]> movimientos, int[] posicion){
         for (int[] mov: movimientos){
             if (mov[0] == posicion[0] && mov[1] == posicion[1])
                 return true;
         }
         
         return false;
+    }
+    
+    public static ArrayList<int[]> allMovimientosPosibles(Cuadro[][] matriz,boolean turno){
+        ArrayList<int[]> allMoves = new ArrayList<>();
+        if (turno){
+            for (Cuadro[] f: matriz){
+                for (Cuadro c: f){
+                    if (c.isOcupado()){
+                        Pieza p = (Pieza)c.getChildren().get(1);
+                        if(p.getColor().equals(TipoColor.Blanco)){
+                            ArrayList<int[]> moves = p.movimientos_posibles(matriz);
+                            allMoves.addAll(moves);
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for (Cuadro[] f: matriz){
+                for (Cuadro c: f){
+                    if (c.isOcupado()){
+                        Pieza p = (Pieza)c.getChildren().get(1);
+                        if(p.getColor().equals(TipoColor.Negro)){
+                            ArrayList<int[]> moves = p.movimientos_posibles(matriz);
+                            allMoves.addAll(moves);
+                        }
+                    }
+                }
+            }
+        }
+        return allMoves;
     }
 }
     
